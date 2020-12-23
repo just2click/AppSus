@@ -6,7 +6,7 @@ export function MailList({ mails , onRemove}) {
         {
             mails.map(mail => {
                 return <li>
-                    <MailPreview mail={mail} key={mail.id} onRemove={onRemove}/>
+                    <MailPreview  key={mail.id} mail={mail}  onRemove={onRemove}/>
                 </li>
             })
         }
