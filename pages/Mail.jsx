@@ -25,7 +25,7 @@ getMailsForDisplay = () =>{
 
         return <section className="main-mail">
             <h1>My Mails</h1>
-            <section className="mail-list">
+            <section >
                 <MailList mails={this.getMailsForDisplay()} />
             </section>
         </section>
