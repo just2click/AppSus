@@ -1,9 +1,7 @@
-// const { NavLink, withRouter } = ReactRouterDOM;
+const { NavLink, withRouter } = ReactRouterDOM;
 
-function _AppFooter() {
+export function AppFooter() {
 
-    return <nav>
-        This is Footer
-    </nav>
+    return <footer>Copyrights-2020 Adina &amp; Nadav © </footer>
 }
 // export const AppHeader = withRouter(_AppFooter);

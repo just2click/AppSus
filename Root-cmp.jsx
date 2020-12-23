@@ -1,4 +1,5 @@
 import { AppHeader } from './main-cmps/App-Header.jsx'
+import { AppFooter } from './main-cmps/App-Footer.jsx'
 import { Mail } from './pages/Mail.jsx'
 import { Home } from './pages/Home.jsx'
 import { Keep } from './pages/Keep.jsx'
@@ -17,7 +18,7 @@ export class RootCmp extends React.Component {
                         <Route path="/mail" component={Mail} />
                         <Route path="/" component={Home} />
                     </Switch>
-                    {/* <AppFooter /> */}
+                    <AppFooter />
                 </section>
             </Router>
         )
