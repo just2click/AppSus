@@ -1,0 +1,12 @@
+.mail-list {
+    list-style: none;
+}
+
+.mail-preview {
+    margin: 8px;
+    background-color: lightblue;
+    padding: 16px;
+    cursor: pointer;
+    box-shadow: 2px -1px 5px 0px black;
+    height: 73%;
+}
