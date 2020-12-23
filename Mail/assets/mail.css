@@ -1,29 +1,36 @@
-    .mail-list {
-        list-style: none;
-    }
-    
-    .mail-preview {
-        margin: 8px;
-        background-color: rgb(105, 155, 49);
-        padding: 16px;
-        cursor: pointer;
-        box-shadow: 2px -1px 5px 0px black;
-        height: 73%;
-    }
-    
-    .fa-star:before {
-        font-size: 1.3rem;
-    }
-    
-    .fa-star:active {
-        color: yellow;
-    }
-    
-    .fa-trash:before {
-        font-size: 1.3rem;
-        margin-right: 15px;
-    }
-    
-    .mail-util {
-        display: flex;
-    }
+.email-main {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    grid-gap: 10px;
+}
+
+.mail-preview {
+    margin: 8px;
+    background-color: rgb(105, 155, 49);
+    /* padding: 16px; */
+    cursor: pointer;
+    box-shadow: -9px -5px 0px 0px #cfe1cc;
+}
+
+.fa-star:before {
+    font-size: 1.3rem;
+}
+
+.fa-star:active {
+    color: yellow;
+}
+
+.fa-trash:before {
+    font-size: 1.3rem;
+    margin-right: 15px;
+}
+
+.mail-util {
+    display: flex;
+}
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}

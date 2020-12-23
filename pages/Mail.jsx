@@ -1,6 +1,7 @@
 
 import { mailService } from '../Mail/service/mail-service.js'
 import { MailList } from '../Mail/cmps/MailList.jsx'
+import { MailNavBar } from '../Mail/cmps/MailNavBar.jsx'
 import { MailCompose } from '../Mail/cmps/MailCompose.jsx'
 
 export class Mail extends React.Component {
@@ -31,22 +32,18 @@ export class Mail extends React.Component {
         })
     }
 
-    onAddMail = (ev) => {
+    onAddMail() {
         ev.preventDefault();
         mailService.add(this.state.mail).then(addedMail => {
-            console.log('addedNote:', addedMail);
             this.loadMails();
         })
     }
     render() {
 
-        return <section className="main-mail">
-            <h1>My Mails</h1>
-            <button onClick={this.onAddMail}>Compose Mail</button>
-            <section>
-                <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
-            </section>
-        </section>
+        return <div className="email-main">
+            <MailNavBar />
+            <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
+        </div>
     }
 
 }
