@@ -1,0 +1,47 @@
+.page {
+    cursor: pointer;
+    display: inline;
+    margin-right: 1rem;
+    font-family: sans-serif;
+    transition: 0.2s;
+}
+
+.nav-pages {
+    background-color: #535a58;
+    color: white;
+    padding: 1.5rem;
+    box-shadow: 1px 3px 6px 0px black;
+    margin: 0 -1rem;
+    list-style: none;
+    display: flex;
+}
+
+.page:hover {
+    color: rgb(76, 163, 88);
+}
+
+.page:visited {
+    color: rgb(160, 160, 192);
+}
+
+a {
+    color: rgb(126, 226, 126);
+    text-decoration: none;
+    margin-left: 2rem;
+}
+
+a:hover {
+    color: rgb(76, 163, 88);
+}
+
+a:focus {
+    color: rgb(76, 163, 88);
+}
+
+a:focus-within {
+    color: rgb(76, 163, 88);
+}
+
+a:active {
+    color: rgb(126, 226, 126);
+}
