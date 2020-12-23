@@ -6,7 +6,8 @@ export class Keep extends React.Component {
     state = {
         notes: [],
         filterBy: '',
-        selectedNote: ''
+        selectedNote: '',
+        note: { type: 'text' }
     }
 
     componentDidMount() {
@@ -21,6 +22,13 @@ export class Keep extends React.Component {
     onRemoveNote = (noteId) => {
         noteService.remove(noteId).then(() => {
             this.loadNotes()
+        })
+    }
+    onAddNote = (ev) => {
+        ev.preventDefault();
+        noteService.add(this.state.note).then(addedNote => {
+            console.log('addedNote:', addedNote);
+            this.loadNotes();
         })
     }
     onSelectNote = (noteId) => {
@@ -40,8 +48,10 @@ export class Keep extends React.Component {
         return <section className="notes-controller">
             <h2>Your Notes</h2>
             <section>
-                <button>🔠</button>
-                {/* <button></button> */}
+                <button onClick={this.onAddNote}>A</button>
+                <button>📋</button>
+                <button>📷</button>
+                <button>🎬</button>
             </section>
             <section className="notes-list">
                 {!selectedNote && <NoteList onRemove={this.onRemoveNote} notes={this.getNotesForDisplay()} />}

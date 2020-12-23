@@ -1,6 +1,8 @@
 .notes-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1rem;
 }
 
 .note-preview {
@@ -12,5 +14,4 @@
     cursor: pointer;
     transition: 0.2s;
     box-shadow: 2px -1px 5px 0px black;
-    height: 100%;
 }

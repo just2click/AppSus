@@ -33,9 +33,7 @@ function _getDemoMails() {
 
 
 function _saveMailsToStorage() {
-
     storageService.save(MAILS_KEY, gMails)
-
 }
 
 function remove(mailId) {

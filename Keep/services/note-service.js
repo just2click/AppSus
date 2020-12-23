@@ -7,7 +7,8 @@ export const noteService = {
     query,
     getNoteById,
     getNotesTypes,
-    remove
+    remove,
+    add
 }
 var gNotes;
 _createNotes();
@@ -39,6 +40,26 @@ function remove(noteId) {
     return Promise.resolve()
 }
 
+function makeId(length = 5) {
+    var txt = '';
+    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < length; i++) {
+        txt += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+    return txt;
+}
+
+function add(note) {
+    const noteToAdd = {
+        id: makeId(),
+        ...note
+    }
+    gNotes = [noteToAdd, ...gNotes]
+    _saveNotesToStorage()
+    return Promise.resolve(noteToAdd)
+
+}
+
 function _getDemoNotes() {
     const notes = [{
             id: 'i101',
@@ -57,7 +78,7 @@ function _getDemoNotes() {
 }
 
 function getNotesTypes() {
-    var notesTypes = {
+    const notesTypes = {
         title: '',
         cmps: [{
                 type: 'textNote'

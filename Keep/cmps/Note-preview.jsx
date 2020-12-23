@@ -1,31 +1,56 @@
 import { noteService } from '../services/note-service.js'
+import { DynamicCmp } from '../cmps/Dynamic-com.jsx'
 
-import { NoteTxt } from './Note-txt.jsx'
-import { NoteImg } from './Note-img.jsx'
-import { NoteTodos } from './Note-todos.jsx'
-import { NoteVideo } from './Note-video.jsx'
 export class NotePreview extends React.Component {
 
     state = {
-        notesTypes: []
+        notesTypes: {
+            title: '',
+            cmps: [{
+                type: 'textNote'
+            },
+            {
+                type: 'imgNote'
+            },
+            {
+                type: 'todoesNote'
+            },
+            {
+                type: 'videoNote'
+            }
+            ]
+        }
     }
     componentDidMount() {
-        this.getTypes();
+        // this.getTypes();
+        // console.log(this.state.notesTypes);
     }
-    getTypes = () => {
-        noteService.getNotesTypes().then(notesTypes => {
-            this.setState({ notesTypes })
-            // console.log(notesTypes);
-        })
-    }
+    // getTypes = () => {
+    //     noteService.getNotesTypes().then(notesTypes => {
+    //         console.log(notesTypes);
+    //         this.setState({ notesTypes })
+    //     })
+    // }
 
     render() {
         const { notesTypes } = this.state
         console.log(notesTypes);
-        return <article className="note-preview" onClick={() => select(note.id)}>
-            <button onClick={() => { this.props.onRemove(this.props.note.id) }}>X</button>
-            <h1>{this.props.note.type}</h1>
-        </article >
+        return (
+
+            <article className="note-preview" >
+                <h1>{this.props.note.type}</h1>
+                {/* {notesTypes.cmps.map((cmp, idx) => {
+                    return (
+                        <div key={idx}>
+                            <DynamicCmp currCmp={cmp.type} note={this.props.note} />
+                        </div>
+                    )
+                })} */}
+
+                <button onClick={() => { this.props.onRemove(this.props.note.id) }}>X</button>
+                <h1>{this.props.note.type}</h1>
+            </article >
+        )
     }
 }
 
