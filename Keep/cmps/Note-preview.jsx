@@ -22,33 +22,16 @@ export class NotePreview extends React.Component {
         }
     }
     componentDidMount() {
-        // this.getTypes();
-        // console.log(this.state.notesTypes);
+
     }
-    // getTypes = () => {
-    //     noteService.getNotesTypes().then(notesTypes => {
-    //         console.log(notesTypes);
-    //         this.setState({ notesTypes })
-    //     })
-    // }
 
     render() {
         const { notesTypes } = this.state
         console.log(notesTypes);
         return (
 
-            <article className="note-preview" >
-                <h1>{this.props.note.type}</h1>
-                {/* {notesTypes.cmps.map((cmp, idx) => {
-                    return (
-                        <div key={idx}>
-                            <DynamicCmp currCmp={cmp.type} note={this.props.note} />
-                        </div>
-                    )
-                })} */}
-
-                <button onClick={() => { this.props.onRemove(this.props.note.id) }}>X</button>
-                <h1>{this.props.note.type}</h1>
+            <article>
+                <DynamicCmp note={this.props.note} onRemove={this.props.onRemove} />
             </article >
         )
     }

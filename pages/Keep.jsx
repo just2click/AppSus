@@ -7,7 +7,17 @@ export class Keep extends React.Component {
         notes: [],
         filterBy: '',
         selectedNote: '',
-        note: { type: 'text' }
+        note: {
+            type: 'imgNote',
+            info: {
+                txt: '',
+                labal: '',
+                todos: [],
+            },
+            style: {
+                backgroundColor: ''
+            }
+        }
     }
 
     componentDidMount() {
@@ -16,7 +26,6 @@ export class Keep extends React.Component {
     loadNotes = () => {
         noteService.query().then(notes => {
             this.setState({ notes })
-            // console.log(notes);
         })
     }
     onRemoveNote = (noteId) => {
@@ -24,12 +33,40 @@ export class Keep extends React.Component {
             this.loadNotes()
         })
     }
-    onAddNote = (ev) => {
-        ev.preventDefault();
+    onAddNote = () => {
         noteService.add(this.state.note).then(addedNote => {
             console.log('addedNote:', addedNote);
             this.loadNotes();
         })
+    }
+    onAddTxt = (ev) => {
+        ev.preventDefault();
+        this.state.note.type = 'textNote'
+        this.state.note.info.txt = "Fullstack Me Baby!"
+        this.onAddNote()
+    }
+    onAddTodo = (ev) => {
+        ev.preventDefault();
+        this.state.note.type = 'todoesNote'
+        this.state.note.info.label = 'todoesNote'
+        this.state.note.info.todos = [
+            { txt: "Do that", doneAt: null },
+            { txt: "Do this", doneAt: 187111111 }
+        ]
+        this.onAddNote()
+    }
+    onAddImg = (ev) => {
+        ev.preventDefault();
+        this.state.note.type = 'imgNote'
+        this.state.note.info.url = 'https://upload.wikimedia.org/wikipedia/commons/d/de/Robert_Bunsen.jpg',
+            this.state.note.info.title = "nice pic!"
+        this.state.note.style.backgroundColor = "#00d"
+        this.onAddNote()
+    }
+    onAddVid = (ev) => {
+        ev.preventDefault();
+        this.state.note.type = 'videoNote'
+        this.onAddNote()
     }
     onSelectNote = (noteId) => {
         const note = noteService.getNoteById(noteId)
@@ -39,7 +76,6 @@ export class Keep extends React.Component {
         this.setState({ selectedNote: '' })
     }
     getNotesForDisplay = () => {
-        // const {filterBy}=this.state
         return this.state.notes
     }
 
@@ -48,10 +84,10 @@ export class Keep extends React.Component {
         return <section className="notes-controller">
             <h2>Your Notes</h2>
             <section>
-                <button onClick={this.onAddNote}>A</button>
-                <button>📋</button>
-                <button>📷</button>
-                <button>🎬</button>
+                <button onClick={this.onAddTxt}>A</button>
+                <button onClick={this.onAddTodo}>📋</button>
+                <button onClick={this.onAddImg}>📷</button>
+                <button onClick={this.onAddVid}>🎬</button>
             </section>
             <section className="notes-list">
                 {!selectedNote && <NoteList onRemove={this.onRemoveNote} notes={this.getNotesForDisplay()} />}

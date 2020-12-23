@@ -1,12 +1,13 @@
 import { utilService } from '../../service/utils-service.js'
 import { storageService } from '../../service/storage-service.js'
 
+
 const KEY = 'notedDB'
 
 export const noteService = {
     query,
     getNoteById,
-    getNotesTypes,
+    // getNotesTypes,
     remove,
     add
 }
@@ -52,7 +53,8 @@ function makeId(length = 5) {
 function add(note) {
     const noteToAdd = {
         id: makeId(),
-        ...note
+        type: note.type
+            // ...note
     }
     gNotes = [noteToAdd, ...gNotes]
     _saveNotesToStorage()
@@ -62,37 +64,63 @@ function add(note) {
 
 function _getDemoNotes() {
     const notes = [{
+            type: 'textNote',
+            isPinned: true,
             id: 'i101',
-            type: 'text'
+            info: {
+                txt: "Fullstack Me Baby!"
+            }
         },
         {
+            type: 'imgNote',
             id: 'i102',
-            type: 'text'
+            info: {
+                url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Robert_Bunsen.jpg',
+                title: 'nice picture'
+            },
+            style: {
+                backgroundColor: "#00d"
+            }
         },
         {
+            type: 'todoesNote',
             id: 'i103',
-            type: 'text'
+            info: {
+                label: "How was it:",
+                todos: [
+                    { txt: "Do that", doneAt: null },
+                    { txt: "Do this", doneAt: 187111111 }
+                ]
+            }
+        },
+        {
+            type: 'videoNote',
+            info: {
+                url: 'https://www.youtube.com/watch?v=vXlm36Nf82I'
+            }
         }
+
+
     ]
     return notes
 }
 
-function getNotesTypes() {
-    const notesTypes = {
-        title: '',
-        cmps: [{
-                type: 'textNote'
-            },
-            {
-                type: 'imgNote'
-            },
-            {
-                type: 'todoesNote'
-            },
-            {
-                type: 'videoNote'
-            }
-        ]
-    }
-    return Promise.resolve(notesTypes)
-}
+// function getNotesTypes() {
+//     const notesTypes = {
+//         title: '',
+//         cmps: [{
+//                 type: 'textNote'
+//             },
+//             {
+//                 type: 'imgNote'
+//             },
+//             {
+//                 type: 'todoesNote'
+//             },
+//             {
+//                 type: 'videoNote'
+//             }
+//         ]
+//     }
+//     return Promise.resolve(notesTypes)
+// }

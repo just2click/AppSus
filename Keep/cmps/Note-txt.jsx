@@ -1,7 +1,15 @@
 
 
-export function NoteTxt({ note }) {
-    return <article>
-        <h1>note-txt</h1>
-    </article>
+export class NoteTxt extends React.Component {
+
+
+    render() {
+
+        return <article className="note-preview" >
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+
+            <button onClick={() => { this.props.onRemove(this.props.note.id) }}>X</button>
+
+        </article>
+    }
 }
