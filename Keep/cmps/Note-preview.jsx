@@ -27,11 +27,12 @@ export class NotePreview extends React.Component {
 
     render() {
         const { notesTypes } = this.state
-        console.log(notesTypes);
+        console.log('currTYpe:', this.props.currType);
+        // console.log(notesTypes);
         return (
 
             <article>
-                <DynamicCmp note={this.props.note} onRemove={this.props.onRemove} />
+                <DynamicCmp note={this.props.note} onRemove={this.props.onRemove} currType={this.props.currType} />
             </article >
         )
     }
