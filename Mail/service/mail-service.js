@@ -5,6 +5,8 @@ import { utilsService } from '../../service/utils-service.js'
 const MAILS_KEY = "mailDB";
 export const mailService = {
     query,
+    remove,
+    getById,
 }
 
 var gMails;
@@ -20,7 +22,6 @@ function _createMails() {
 }
 
 function _getDemoMails() {
-
     const mails = [
         { id: utilsService.makeId(), type: 'income', address: 'Nadav@gmail.com', subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: 1659833930320 },
         { id: utilsService.makeId(), type: 'income', address: 'Adina@gmail.com', subject: 'Check it out!', body: 'Check my Keep app', isStarred: true, isRead: false, sentAt: 1551155690578 },
@@ -30,10 +31,22 @@ function _getDemoMails() {
     return mails
 }
 
+
 function _saveMailsToStorage() {
 
     storageService.save(MAILS_KEY, gMails)
 
+}
+
+function remove(mailId) {
+    gMails = gMails.filter(mail => mail.id !== mailId);
+    _saveMailsToStorage();
+    return Promise.resolve();
+}
+
+function getById(mailId) {
+    const mail = mails.find(mail => mail.id === mailId);
+    return Promise.resolve(mail);
 }
 
 
