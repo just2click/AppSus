@@ -1,0 +1,11 @@
+.note-preview {
+    margin: 8px;
+    background-color: rgb(171 245 109);
+    color: rgb(0, 0, 0);
+    padding: 16px;
+    /* border-radius: 3px; */
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 2px -1px 5px 0px black;
+    height: 73%;
+}
