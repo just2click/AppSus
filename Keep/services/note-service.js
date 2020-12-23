@@ -5,10 +5,13 @@ const KEY = 'notedDB'
 
 export const noteService = {
     query,
-    getNoteById
+    getNoteById,
+    getNotesTypes,
+    remove
 }
 var gNotes;
 _createNotes();
+
 
 function _createNotes() {
     gNotes = storageService.load(KEY)
@@ -30,6 +33,12 @@ function _saveNotesToStorage() {
     storageService.save(KEY, gNotes)
 }
 
+function remove(noteId) {
+    gNotes = gNotes.filter(note => note.id !== noteId)
+    _saveNotesToStorage()
+    return Promise.resolve()
+}
+
 function _getDemoNotes() {
     const notes = [{
             id: 'i101',
@@ -45,4 +54,24 @@ function _getDemoNotes() {
         }
     ]
     return notes
+}
+
+function getNotesTypes() {
+    var notesTypes = {
+        title: '',
+        cmps: [{
+                type: 'textNote'
+            },
+            {
+                type: 'imgNote'
+            },
+            {
+                type: 'todoesNote'
+            },
+            {
+                type: 'videoNote'
+            }
+        ]
+    }
+    return Promise.resolve(notesTypes)
 }

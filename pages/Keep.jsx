@@ -15,7 +15,12 @@ export class Keep extends React.Component {
     loadNotes = () => {
         noteService.query().then(notes => {
             this.setState({ notes })
-            console.log(notes);
+            // console.log(notes);
+        })
+    }
+    onRemoveNote = (noteId) => {
+        noteService.remove(noteId).then(() => {
+            this.loadNotes()
         })
     }
     onSelectNote = (noteId) => {
@@ -34,17 +39,14 @@ export class Keep extends React.Component {
         const { selectedNote } = this.state
         return <section className="notes-controller">
             <h2>Your Notes</h2>
+            <section>
+                <button>🔠</button>
+                {/* <button></button> */}
+            </section>
             <section className="notes-list">
-                {!selectedNote && <NoteList notes={this.getNotesForDisplay()} />}
+                {!selectedNote && <NoteList onRemove={this.onRemoveNote} notes={this.getNotesForDisplay()} />}
             </section>
         </section>
     }
 }
 
-// export function Keep() {
-//     return (
-//         <section>
-//             <h1>This is the keep page</h1>
-//         </section>
-//     )
-// }

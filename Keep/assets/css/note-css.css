@@ -1,3 +1,8 @@
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+}
+
 .note-preview {
     margin: 8px;
     background-color: rgb(171 245 109);
@@ -7,5 +12,5 @@
     cursor: pointer;
     transition: 0.2s;
     box-shadow: 2px -1px 5px 0px black;
-    height: 73%;
+    height: 100%;
 }
