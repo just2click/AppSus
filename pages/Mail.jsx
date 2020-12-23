@@ -18,13 +18,7 @@ export class Mail extends React.Component {
                 this.setState({ mails })
             })
     }
-    openCompose = () => {
-        this.setState({ isComposeShown: true })
-    }
 
-    closeCompose = () => {
-        this.setState({ isComposeShown: false })
-    }
 getMailsForDisplay = () =>{
     return this.state.mails
 }
@@ -39,9 +33,8 @@ onRemoveMail = (mailId) => {
         return <section className="main-mail">
             <h1>My Mails</h1>
             <button>Compose Mail</button>
-            <section >
+            <section>
                 <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
-                
             </section>
         </section>
     }
