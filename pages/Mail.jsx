@@ -1,3 +1,4 @@
+
 import { mailService } from '../Mail/service/mail-service.js'
 import { MailList } from '../Mail/cmps/MailList.jsx'
 import { MailCompose } from '../Mail/cmps/MailCompose.jsx'
@@ -6,6 +7,7 @@ export class Mail extends React.Component {
 
     state = {
         mails: [],
+        mail: {type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date()}
     }
 
     componentDidMount() {
@@ -19,20 +21,28 @@ export class Mail extends React.Component {
             })
     }
 
-getMailsForDisplay = () =>{
-    return this.state.mails
-}
+    getMailsForDisplay = () => {
+        return this.state.mails
+    }
 
-onRemoveMail = (mailId) => {
-    mailService.remove(mailId).then(() => {
-        this.loadMails()
-    })
-}
+    onRemoveMail = (mailId) => {
+        mailService.remove(mailId).then(() => {
+            this.loadMails()
+        })
+    }
+
+    onAddMail = (ev) => {
+        ev.preventDefault();
+        mailService.add(this.state.mail).then(addedMail => {
+            console.log('addedNote:', addedMail);
+            this.loadMails();
+        })
+    }
     render() {
 
         return <section className="main-mail">
             <h1>My Mails</h1>
-            <button>Compose Mail</button>
+            <button onClick={this.onAddMail}>Compose Mail</button>
             <section>
                 <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
             </section>
