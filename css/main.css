@@ -1,5 +1,10 @@
 @import '../Keep/assets/css/note-css.css';
 @import '../Mail/assets/mail.css';
+* {
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 .page {
     cursor: pointer;
     display: inline;

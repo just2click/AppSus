@@ -7,9 +7,13 @@
 .mail-preview {
     margin: 8px;
     background-color: rgb(105, 155, 49);
-    /* padding: 16px; */
     cursor: pointer;
     box-shadow: -9px -5px 0px 0px #cfe1cc;
+    padding: 5px;
+}
+
+#root>section>div>section>a {
+    color: black;
 }
 
 .fa-star:before {
@@ -33,4 +37,13 @@
     margin: 0;
     padding: 0;
     list-style-type: none;
+    font-size: 1.4rem;
+    line-height: 93px;
+    background-color: #699B31;
+    box-shadow: 5px 0px 0px 0px #CFE1CC;
+}
+
+h1,
+h3 {
+    margin: 0;
 }

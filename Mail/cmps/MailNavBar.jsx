@@ -6,14 +6,12 @@ export class MailNavBar extends React.Component {
         return (
             <section>
                 <ul className="clean-list">
-                    <button onClick={this.onAddMail}>Compose Mail</button>
+                <button className="compose-btn" onClick={() => props.openCompose()}>Compose</button>
                     <li>All</li>
                     <li>Inbox</li>
                     <li>Unread</li>
                     <li>Sent</li>
                     <li>Drafts</li>
-                    <li>Deleted</li>
-                    <li>Spam</li>
                 </ul>
 
             </section>

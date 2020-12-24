@@ -1,14 +1,17 @@
-
 import { mailService } from '../Mail/service/mail-service.js'
 import { MailList } from '../Mail/cmps/MailList.jsx'
 import { MailNavBar } from '../Mail/cmps/MailNavBar.jsx'
 import { MailCompose } from '../Mail/cmps/MailCompose.jsx'
+import { MailFilter } from '../Mail/cmps/MailFilter.jsx'
+
 
 export class Mail extends React.Component {
 
     state = {
         mails: [],
-        mail: {type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date()}
+        mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
+        isComposeShown: false,
+        isRead: false,
     }
 
     componentDidMount() {
@@ -32,28 +35,52 @@ export class Mail extends React.Component {
         })
     }
 
-    onAddMail() {
+    onAddMail = (ev) => {
         ev.preventDefault();
         mailService.add(this.state.mail).then(addedMail => {
+            console.log('addedNote:', addedMail);
             this.loadMails();
         })
+    }
+
+    
+    openCompose = () => {
+        this.setState({ isComposeShown: true })
+    }
+
+    closeCompose = () => {
+        this.setState({ isComposeShown: false })
+    }
+
+    sendToDrafts = (draft) => {
+        if (!draft.address && !draft.subject && !draft.body) {
+            this.closeCompose();
+            return
+        }
+        mailService.sendToDrafts(draft)
+            .then(() => {
+                eventBus.emit('notify', { msg: 'Saved to drafts!', type: 'success' })
+                this.closeCompose()
+                this.loadMails()
+            })
+    }
+
+    submitCompose = (newMail) => {
+        mailService.sendMail(newMail)
+            .then(() => {
+                eventBus.emit('notify', { msg: 'The mail have been sent!', type: 'success' })
+                this.closeCompose()
+                this.loadMails()
+            })
     }
     render() {
 
         return <div className="email-main">
+            {/* <button onClick={this.onAddMail}>Compose Mail</button> */}
             <MailNavBar />
             <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
+            {this.state.isComposeShown && <MailCompose onCloseCompose={this.closeCompose} onSubmitCompose={this.submitCompose} keepToMail={this.state.keepToMail} onSendToDrafts={this.sendToDrafts} />}
         </div>
     }
 
 }
-
-
-
-// export function Mail() {
-//     return (
-//         <section>
-//             <h1>This is the mail page!</h1>
-//         </section>
-//     )
-// }
