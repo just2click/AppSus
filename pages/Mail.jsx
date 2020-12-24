@@ -10,6 +10,7 @@ export class Mail extends React.Component {
     state = {
         mails: [],
         mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
+        isCompose:false,
         isComposeShown: false,
         isRead: false,
     }
@@ -63,6 +64,11 @@ export class Mail extends React.Component {
                 this.closeCompose()
                 this.loadMails()
             })
+    }
+
+    onSent = () => {
+        this.setState({isCompose:false})
+        this.loadMails()
     }
 
     submitCompose = (newMail) => {

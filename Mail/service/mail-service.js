@@ -8,6 +8,7 @@ export const mailService = {
     remove,
     getById,
     add,
+    send
 }
 
 var gMails;
@@ -42,6 +43,15 @@ function remove(mailId) {
     return Promise.resolve();
 }
 
+function send(mail) {
+    mail = {
+        id: utilsService.makeId(),
+        ...mail
+    }
+    gMails = [mail, ...gMails]
+    _saveMailsToStorage()
+    return Promise.resolve(mail)
+}
 
 function add(mail) {
     const mailToAdd = {
