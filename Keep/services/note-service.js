@@ -1,15 +1,16 @@
-import { utilService } from '../../service/utils-service.js'
 import { storageService } from '../../service/storage-service.js'
+import { utilsService } from '../../service/utils-service.js'
 
 
 const KEY = 'notedDB'
 
 export const noteService = {
     query,
-    getNoteById,
+    // getNoteById,
     // getNotesTypes,
     remove,
-    add
+    // add,
+    addNote
 }
 var gNotes;
 _createNotes();
@@ -23,68 +24,58 @@ function _createNotes() {
     }
 }
 
+function addNote(newNote) {
+    console.log('adding new note', newNote);
+    var newInfo = {}
+    switch (newNote.type) {
+        case "NoteText":
+            newInfo.txt = newNote.note
+            break;
+        case "NoteImg" || "NoteVideo":
+            newInfo.url = newNote.note
+            break;
+        case "NoteTodos":
+            var todosTxt = newNote.note.split(',')
+            newInfo.todos = todosTxt.reduce((acc, todo) => {
+                acc.push({ txt: todo, doneAt: null })
+                return acc
+            }, [])
+            break
+    }
+    const newNoteToAdd = { id: utilsService.makeId(), type: newNote.type, info: newInfo }
+    gNotes = [newNoteToAdd, ...gNotes]
+    console.log(newInfo)
+    _saveNotesToStorage()
+    return Promise.resolve(gNotes)
+}
+
 function query() {
     return Promise.resolve(gNotes)
 }
 
-function getNoteById(noteId) {
-    return noteService.find(note => note.id === noteId)
-}
-
-function _saveNotesToStorage() {
-    storageService.save(KEY, gNotes)
-}
-
-function remove(noteId) {
-    gNotes = gNotes.filter(note => note.id !== noteId)
-    _saveNotesToStorage()
-    return Promise.resolve()
-}
-
-function makeId(length = 5) {
-    var txt = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < length; i++) {
-        txt += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return txt;
-}
-
-function add(note) {
-    const noteToAdd = {
-        id: makeId(),
-        type: note.type
-            // ...note
-    }
-    gNotes = [noteToAdd, ...gNotes]
-    _saveNotesToStorage()
-    return Promise.resolve(noteToAdd)
-
-}
-
 function _getDemoNotes() {
     const notes = [{
-            type: 'textNote',
+            type: 'NoteText',
             isPinned: true,
-            id: 'i101',
+            id: utilsService.makeId(),
             info: {
                 txt: "Fullstack Me Baby!"
             }
         },
         {
-            type: 'imgNote',
-            id: 'i102',
+            type: 'NoteImg',
+            id: utilsService.makeId(),
             info: {
                 url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Robert_Bunsen.jpg',
-                title: 'nice picture'
+                title: 'nice picture!!'
             },
             style: {
-                backgroundColor: "#00d"
+                backgroundColor: 'green'
             }
         },
         {
-            type: 'todoesNote',
-            id: 'i103',
+            type: 'NoteTodos',
+            id: utilsService.makeId(),
             info: {
                 label: "How was it:",
                 todos: [
@@ -94,9 +85,14 @@ function _getDemoNotes() {
             }
         },
         {
-            type: 'videoNote',
+            type: 'NoteVideo',
+            id: utilsService.makeId(),
             info: {
-                url: 'https://www.youtube.com/watch?v=vXlm36Nf82I'
+                url: 'https://www.youtube.com/embed/tgbNymZ7vqY',
+                title: "nice vid!!"
+            },
+            style: {
+                backgroundColor: "#00d"
             }
         }
 
@@ -105,22 +101,18 @@ function _getDemoNotes() {
     return notes
 }
 
-// function getNotesTypes() {
-//     const notesTypes = {
-//         title: '',
-//         cmps: [{
-//                 type: 'textNote'
-//             },
-//             {
-//                 type: 'imgNote'
-//             },
-//             {
-//                 type: 'todoesNote'
-//             },
-//             {
-//                 type: 'videoNote'
-//             }
-//         ]
-//     }
-//     return Promise.resolve(notesTypes)
+// function getNoteById(noteId) {
+//     return noteService.find(note => note.id === noteId)
 // }
+
+function _saveNotesToStorage() {
+    storageService.save(KEY, gNotes)
+}
+
+function remove(noteId) {
+    console.log('removing', noteId);
+
+    gNotes = gNotes.filter(note => note.id !== noteId)
+    _saveNotesToStorage()
+    return Promise.resolve()
+}

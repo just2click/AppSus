@@ -11,9 +11,18 @@
     color: rgb(0, 0, 0);
     padding: 16px;
     /* border-radius: 3px; */
-    cursor: pointer;
+    /* cursor: pointer; */
     transition: 0.2s;
     box-shadow: 2px -1px 5px 0px black;
+}
+
+.fas {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fas:hover {
+    color: rgb(79, 95, 95);
 }
 
 .img-type {

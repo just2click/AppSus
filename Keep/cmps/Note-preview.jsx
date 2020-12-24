@@ -1,41 +1,37 @@
-import { noteService } from '../services/note-service.js'
-import { DynamicCmp } from '../cmps/Dynamic-com.jsx'
+// import { noteService } from '../services/note-service.js'
+// import { DynamicCmp } from '../cmps/Dynamic-com.jsx'
+
+import { NoteTxt } from './Note-txt.jsx'
+import { NoteImg } from './Note-img.jsx'
+import { NoteTodos } from './Note-todos.jsx'
+import { NoteVideo } from './Note-video.jsx'
 
 export class NotePreview extends React.Component {
 
-    state = {
-        notesTypes: {
-            title: '',
-            cmps: [{
-                type: 'textNote'
-            },
-            {
-                type: 'imgNote'
-            },
-            {
-                type: 'todoesNote'
-            },
-            {
-                type: 'videoNote'
-            }
-            ]
-        }
-    }
-    componentDidMount() {
-
-    }
-
     render() {
-        const { notesTypes } = this.state
-        console.log('currTYpe:', this.props.currType);
-        // console.log(notesTypes);
+        const { note } = this.props
         return (
-
-            <article>
-                <DynamicCmp note={this.props.note} onRemove={this.props.onRemove} currType={this.props.currType} />
-            </article >
+            <DynamicCmp info={note.info} currType={note.type} remove={this.props.remove} note={note} />
         )
     }
 }
+
+
+function DynamicCmp({ info, currType, remove, note }) {
+    switch (currType) {
+        case 'NoteText':
+            return <NoteTxt info={info} remove={remove} note={note} />
+        case 'NoteImg':
+            return <NoteImg info={info} remove={remove} note={note} />
+        case 'NoteTodos':
+            return <NoteTodos info={info} remove={remove} note={note} />
+        case 'NoteVideo':
+            return <NoteVideo info={info} remove={remove} note={note} />
+        default:
+            return <h1>Error</h1>
+    }
+
+}
+
 
 
