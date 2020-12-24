@@ -18,7 +18,7 @@ export class RootCmp extends React.Component {
                     <AppHeader />
                     <Switch>
                         {/* <Route path="/keep/:keepId" component={NotePreview} /> */}
-                        <Route path="/mail/compose/:newMail?" component={MailCompose} />
+                        {/* <Route path="/mail/compose/:newMail?" component={MailCompose} /> */}
                         <Route path="/mail/:mailId" component={MailDetails} />
                         <Route path="/keep" component={Keep} />
                         <Route path="/mail" component={Mail} />

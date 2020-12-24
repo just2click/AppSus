@@ -12,6 +12,7 @@ export class Mail extends React.Component {
         mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
         isCompose:false,
         isComposeShown: false,
+        // poistion abosulute
         isRead: false,
     }
 
@@ -84,6 +85,7 @@ export class Mail extends React.Component {
         return <div className="email-main">
             {/* <button onClick={this.onAddMail}>Compose Mail</button> */}
             <MailNavBar />
+            <MailCompose onSent={this.onSent}/>
             <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
         </div>
     }
