@@ -54,7 +54,7 @@ function add(mail) {
 }
 
 function getById(mailId) {
-    const mail = mails.find(mail => mail.id === mailId);
+    const mail = gMails.find(mail => mail.id === mailId);
     return Promise.resolve(mail);
 }
 

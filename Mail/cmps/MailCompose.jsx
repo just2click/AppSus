@@ -1,63 +1,51 @@
+import { mailService } from "../service/mail-service.js"
+
+
 
 export class MailCompose extends React.Component {
 
     state = {
-        newMail: {
-            address: '',
-            subject: '',
-            body: ''
-        }
+        newMail:{address: null, subject: null, body: null, isStarred: true, isRead: false, sentAt: new Date() },
     }
 
-
-    elInput = React.createRef()
+    // refInput = React.createRef();
 
     componentDidMount() {
-        const keepValue = this.props.keepToMail
-        if (keepValue) {
-            this.setState({ newMail: { ...this.state.newMail, body: keepValue } })
-        }
-        this.elInput.current.focus()
+        console.log('HHHHHHHHEYA!!');
+        const {mailId} = this.state.newMail
+        // this.refInput.current.focus();
+        if (!mailId) return
+        mailService.getById(mailId).then(mail => {
+            this.setState ({mail})
+        })
     }
 
-    onInputChange = (ev) => {
-        this.setState({ newMail: { ...this.state.newMail, [ev.target.name]: ev.target.value } })
+    onSaveCompose = (ev) => {
+        ev.preventDefault();
+        mailService.add(this.state.newMail)
+        .then(savedMail =>{
+            console.log('composed')
+            this.props.history.push('/mail')
+        })
     }
-
-    onSubmitCompose = (ev) => {
-        ev.preventDefault()
-        this.props.onSubmitCompose(this.state.newMail)
-    }
-
-    render() {
-
-        return (
-            <div>
-                <div>
-                    <p> New Message </p>
-                    <div>
-                        <button title="save to drafts" onClick={() => this.props.onSendToDrafts(this.state.newMail)}></button>
-                    </div>
-                </div>
-                <form onSubmit={this.onSubmitCompose} >
-                    <div>
-                        <input type="mail" name="address" placeholder="to" onChange={this.onInputChange} />
-                    </div>
-                    <div>
-                        <input ref={this.elInput} type="text" name="subject" placeholder="Subject" onChange={this.onInputChange} />
-                    </div>
-
-                    <div>
-                        <textarea value={this.state.newMail.body} rows="25" type="text" name="body" placeholder="Write your mail here" onChange={this.onInputChange} />
-                    </div>
-                    <section>
-                        <button type="submit" title="Send"> Send </button>
-                        <button onClick={() => this.props.onCloseCompose()}></button>
-                    </section>
-                </form>
-            </div>
-
-        )
-    }
+onInputChange = (ev) => {
+    const value = (ev.target.type === 'string' )
+    const mail = {...this.state.newMail}
+    mail[ev.target.subject] = value;
+    this.setState({
+        mail
+    })
+}
+render() {
+    return (
+        <form className="compose-form" onSubmit={this.onSaveCompose}>
+            <input placeholder="From" value={this.state.newMail.address} onChange={this.onInputChange} />
+            <input placeholder="Subject" value={this.state.newMail.subject} onChange={this.onInputChange}/>
+            <textarea type="text-area" placeholder="Content" value={this.state.newMail.body} onChange={this.onInputChange}></textarea>
+            <button type="submit">Send</button>
+        </form>
+    )
 }
 
+}
+// { id: utilsService.makeId(), type: 'income', address: 'Nadav@gmail.com', subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: 1659833930320 },

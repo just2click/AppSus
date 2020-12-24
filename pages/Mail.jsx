@@ -79,7 +79,6 @@ export class Mail extends React.Component {
             {/* <button onClick={this.onAddMail}>Compose Mail</button> */}
             <MailNavBar />
             <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
-            {this.state.isComposeShown && <MailCompose onCloseCompose={this.closeCompose} onSubmitCompose={this.submitCompose} keepToMail={this.state.keepToMail} onSendToDrafts={this.sendToDrafts} />}
         </div>
     }
 
