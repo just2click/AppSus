@@ -1,11 +1,23 @@
 .notes-controller {
     text-align: center;
+    background-color: #baf7a9;
+    margin: -2%;
+}
+
+.add-note {
+    margin: 4rem auto;
+    width: 50%;
+    box-shadow: 1px 0px 4px 0px black;
+    padding: 2rem;
+    background-color: white;
 }
 
 .add-note input {
     border: none;
     float: left;
     margin-top: -0.6rem;
+    margin-right: 4rem;
+    width: 14rem;
 }
 
 .add-note input:focus {
@@ -24,11 +36,15 @@ span {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(5, 1fr);
     grid-gap: 1rem;
+    column-count: 5;
+    margin: 5%;
+    margin-bottom: 2rem;
+    height: 100%;
 }
 
 .note-preview {
     margin: 8px;
-    background-color: rgb(171 245 109);
+    background-color: rgb(214 223 206);
     color: rgb(0, 0, 0);
     padding: 16px;
     transition: 0.2s;
@@ -38,13 +54,6 @@ span {
 .fas {
     cursor: pointer;
     transition: 0.2s;
-}
-
-.add-note {
-    margin: 4rem auto;
-    width: 50%;
-    box-shadow: 1px 0px 4px 0px black;
-    padding: 2rem;
 }
 
 .search {
@@ -88,6 +97,7 @@ span {
 
 .video-type {
     height: fit-content;
+    width: fit-content;
 }
 
 .colorsEdit {

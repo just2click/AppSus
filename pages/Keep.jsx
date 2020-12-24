@@ -1,11 +1,13 @@
 import { AddNote } from '../Keep/cmps/Add-note.jsx'
 import { NoteList } from '../Keep/cmps/Note-list.jsx'
 import { noteService } from '../Keep/services/note-service.js'
+import { NoteFilter } from '../Keep/cmps/Note-filter.jsx'
 
 export class Keep extends React.Component {
 
     state = {
-        notes: []
+        notes: [],
+        filterBy: ''
     }
 
     componentDidMount() {
@@ -29,10 +31,29 @@ export class Keep extends React.Component {
             })
     }
     get notesForDisplay() {
-        const { notes } = this.state
-        return notes
+        const { filterBy } = this.state
+        const filterRegex = new RegExp(filterBy, 'i')
+        // const { notes } = this.state
+        // return notes
+        return this.state.notes.filter(note => filterRegex.test(note.type))
     }
-
+    onChangeColor = (note, color) => {
+        noteService.changeColor(note, color).then(updatedNote => {
+            console.log(updatedNote);
+            this.loadNotes()
+        })
+    }
+    changeUrl = (note, url) => {
+        // console.log('change:', note);
+        noteService.changeUrl(note, url)
+            .then(updatedNote => {
+                console.log(updatedNote);
+                this.loadNotes()
+            })
+    }
+    onSetFilter = (filterBy) => {
+        this.setState({ filterBy })
+    }
     render() {
         const notesToShow = this.notesForDisplay
 
@@ -43,8 +64,14 @@ export class Keep extends React.Component {
                 <section className="notes-controller">
                     <h2>Your Notes</h2>
                     <AddNote addNote={this.addNote} />
-                    <NoteList notes={notesToShow} remove={this.onRemoveNote} />
-                </section>
+                    <select onchange={this.onSetFilter}>
+                        <option value="all">All</option>
+                        <option value="text">Text</option>
+                        <option value="img">Img</option>
+                    </select>
+                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.changeUrl} changeColor={this.onChangeColor} />
+                    {/* <NoteFilter setFilter={this.onSetFilter} /> */}
+                </section >
             )
         }
     }

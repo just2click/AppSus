@@ -10,7 +10,9 @@ export const noteService = {
     // getNotesTypes,
     remove,
     // add,
-    addNote
+    addNote,
+    changeUrl,
+    changeColor
 }
 var gNotes;
 _createNotes();
@@ -55,6 +57,7 @@ function query() {
 
 function _getDemoNotes() {
     const notes = [{
+            color: '#dadada',
             type: 'NoteText',
             isPinned: true,
             id: utilsService.makeId(),
@@ -63,6 +66,7 @@ function _getDemoNotes() {
             }
         },
         {
+            color: '#dadada',
             type: 'NoteImg',
             id: utilsService.makeId(),
             info: {
@@ -74,6 +78,7 @@ function _getDemoNotes() {
             }
         },
         {
+            color: '#dadada',
             type: 'NoteTodos',
             id: utilsService.makeId(),
             info: {
@@ -85,6 +90,7 @@ function _getDemoNotes() {
             }
         },
         {
+            color: '#dadada',
             type: 'NoteVideo',
             id: utilsService.makeId(),
             info: {
@@ -115,4 +121,32 @@ function remove(noteId) {
     gNotes = gNotes.filter(note => note.id !== noteId)
     _saveNotesToStorage()
     return Promise.resolve()
+}
+
+function changeUrl(note, url) {
+    const noteToUpdate = {
+        info: {
+            url
+        },
+        ...note
+    }
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(note => note.id === note.id)
+    notesCopy[noteIdx] = noteToUpdate
+    gNotes = notesCopy
+    _saveNotesToStorage();
+    return Promise.resolve(noteToUpdate)
+}
+
+function changeColor(note, color) {
+    const noteToUpdate = {
+        color,
+        ...note
+    }
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(note => note.id === note.id)
+    notesCopy[noteIdx] = noteToUpdate
+    gNotes = notesCopy
+    _saveNotesToStorage();
+    return Promise.resolve(noteToUpdate)
 }
