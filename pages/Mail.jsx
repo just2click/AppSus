@@ -45,15 +45,6 @@ export class Mail extends React.Component {
         })
     }
 
-    
-    openCompose = () => {
-        this.setState({ isComposeShown: true })
-    }
-
-    closeCompose = () => {
-        this.setState({ isComposeShown: false })
-    }
-
     sendToDrafts = (draft) => {
         if (!draft.address && !draft.subject && !draft.body) {
             this.closeCompose();
@@ -66,27 +57,29 @@ export class Mail extends React.Component {
                 this.loadMails()
             })
     }
-
+    onCompose = () => {
+        this.setState({ isCompose: true });
+    }
     onSent = () => {
         this.setState({isCompose:false})
         this.loadMails()
     }
 
-    submitCompose = (newMail) => {
-        mailService.sendMail(newMail)
-            .then(() => {
-                eventBus.emit('notify', { msg: 'The mail have been sent!', type: 'success' })
-                this.closeCompose()
-                this.loadMails()
-            })
-    }
+    // submitCompose = (newMail) => {
+    //     mailService.sendMail(newMail)
+    //         .then(() => {
+    //             eventBus.emit('notify', { msg: 'The mail have been sent!', type: 'success' })
+    //             this.closeCompose()
+    //             this.loadMails()
+    //         })
+    // }
     render() {
 
         return <div className="email-main">
             {/* <button onClick={this.onAddMail}>Compose Mail</button> */}
             <MailNavBar />
-            <MailCompose onSent={this.onSent}/>
             <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
+            <MailCompose onSent={this.onSent} onClick={this.closeCompose}/>
         </div>
     }
 

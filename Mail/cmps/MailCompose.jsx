@@ -34,7 +34,7 @@ export class MailCompose extends React.Component {
         ev.preventDefault();
         mailService.send(this.state.newMail)
             .then(sentMail => {
-                console.log('email sent:', sentMail)
+                // console.log('email sent:', sentMail)
                 this.props.onSent();
             })
     }
