@@ -1,3 +1,24 @@
+.notes-controller {
+    text-align: center;
+}
+
+.add-note input {
+    border: none;
+    float: left;
+    margin-top: -0.6rem;
+}
+
+.add-note input:focus {
+    outline: none;
+}
+
+span {
+    float: right;
+    margin-top: -0.8rem;
+    margin-right: 1.2rem;
+    font-size: x-large;
+}
+
 .notes-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -10,8 +31,6 @@
     background-color: rgb(171 245 109);
     color: rgb(0, 0, 0);
     padding: 16px;
-    /* border-radius: 3px; */
-    /* cursor: pointer; */
     transition: 0.2s;
     box-shadow: 2px -1px 5px 0px black;
 }
@@ -21,10 +40,61 @@
     transition: 0.2s;
 }
 
-.fas:hover {
-    color: rgb(79, 95, 95);
+.add-note {
+    margin: 4rem auto;
+    width: 50%;
+    box-shadow: 1px 0px 4px 0px black;
+    padding: 2rem;
+}
+
+.search {
+    margin-left: 1.5rem;
+    transition: 0.1s;
+}
+
+.search:hover {
+    color: greenyellow;
+}
+
+.edit .fas {
+    margin-left: 0.7rem;
+    color: gray;
+}
+
+.edit .fas:hover {
+    color: black;
+}
+
+.img {
+    width: 100%;
+    /* height: fit-content; */
 }
 
 .img-type {
-    width: 100%;
+    height: fit-content;
+}
+
+.change-url {
+    margin-top: 0.2rem;
+}
+
+.txt-type {
+    height: fit-content
+}
+
+.todo-type {
+    height: fit-content
+}
+
+.video-type {
+    height: fit-content;
+}
+
+.colorsEdit {
+    list-style: none;
+    display: flex;
+}
+
+.fa-circle {
+    cursor: pointer;
 }

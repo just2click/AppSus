@@ -44,7 +44,6 @@ export class Keep extends React.Component {
                     <h2>Your Notes</h2>
                     <AddNote addNote={this.addNote} />
                     <NoteList notes={notesToShow} remove={this.onRemoveNote} />
-
                 </section>
             )
         }

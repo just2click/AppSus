@@ -9,7 +9,11 @@ export class AddNote extends React.Component {
 
     addNote = (ev) => {
         ev.preventDefault();
+        let txt = this.state.txt
+        txt = 'What\'s on your mind...'
+        this.setState({ txt })
         this.props.addNote(this.state.newCmp)
+
     }
 
     onInputChange = (ev) => {
@@ -32,14 +36,14 @@ export class AddNote extends React.Component {
     render() {
         const { note } = this.state.newCmp
         return <section>
-            <form onSubmit={this.addNote}>
-                <input value={note} placeholder={this.state.txt} type="text" name="note" onChange={this.onInputChange} />
-
-                <button type="button" onClick={() => this.onChangeType('NoteText', 'What\'s on your mind...')}>A</button>
-                <button type="button" onClick={() => this.onChangeType('NoteImg', 'Enter image url')}>📷</button>
-                <button type="button" onClick={() => this.onChangeType('NoteVideo', 'Enter video url')}>🎬</button>
-                <button type="button" onClick={() => this.onChangeType('NoteTodos', 'Enter comma separated list')}>📋</button>
-                {/* <button type="submit">ADD</button> */}
+            <form onSubmit={this.addNote} className="add-note">
+                <input value={note} placeholder={this.state.txt} type="text" name="note" onChange={this.onInputChange} autoComplete="off" />
+                <span className="input-signs">
+                    <i className="fas fa-font search" onClick={() => this.onChangeType('NoteText', 'What\'s on your mind...')}></i>
+                    <i className="fas fa-camera search" onClick={() => this.onChangeType('NoteImg', 'Enter image url...')}></i>
+                    <i className="fas fa-video search" onClick={() => this.onChangeType('NoteVideo', 'Enter video url...')}></i>
+                    <i className="fas fa-list-ul search" onClick={() => this.onChangeType('NoteTodos', 'Enter comma separated list...')}></i>
+                </span>
             </form>
         </section>
     }
