@@ -53,6 +53,23 @@ a:active {
     color: rgb(126, 226, 126);
 }
 
+.home>h1 {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.home>img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.about {
+    margin: 5px;
+    text-align: center;
+}
+
 footer {
     border-top: 1px solid gray;
     text-align: center;
