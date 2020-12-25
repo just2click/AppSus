@@ -4,7 +4,6 @@ import { MailNavBar } from '../Mail/cmps/MailNavBar.jsx'
 import { MailCompose } from '../Mail/cmps/MailCompose.jsx'
 import { MailFilter } from '../Mail/cmps/MailFilter.jsx'
 
-
 export class Mail extends React.Component {
 
     state = {
@@ -62,7 +61,12 @@ export class Mail extends React.Component {
     }
     onSent = () => {
         this.setState({isCompose:false})
+        this.setState({isComposeShown:false})
         this.loadMails()
+    }
+
+    onOpenCompose= () => {
+        this.setState({isComposeShown:true})
     }
 
     // submitCompose = (newMail) => {
@@ -76,11 +80,14 @@ export class Mail extends React.Component {
     render() {
 
         return <div className="email-main">
-            {/* <button onClick={this.onAddMail}>Compose Mail</button> */}
+            <section>
+            <p onClick={this.onOpenCompose}>📧</p>
             <MailNavBar />
+            </section>
             <MailList mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
-            <MailCompose onSent={this.onSent} onClick={this.closeCompose}/>
+            {this.state.isComposeShown && <MailCompose  onSent={this.onSent} onClick={this.onSent}/>}
         </div>
+        // onClick={this.onCompose} -- goes back to MailCompose?
     }
 
 }

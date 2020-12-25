@@ -1,53 +1,93 @@
-h1,
-h3 {
-    margin: 0;
-}
-
-.email-main {
-    display: grid;
-    grid-template-columns: 1fr 10fr;
-    grid-gap: 10px;
-}
-
-.mail-preview {
-    margin: 8px;
-    background-color: rgb(105, 155, 49);
-    cursor: pointer;
-    box-shadow: -9px -5px 0px 0px #cfe1cc;
-    padding: 5px;
-}
-
-#root>section>div>section>article>a {
-    color: black;
-}
-
-.fa-star:before {
-    font-size: 1.3rem;
-}
-
-.fa-star:active {
-    color: yellow;
-}
-
-.fa-trash:before {
-    font-size: 1.3rem;
-    margin-right: 15px;
-}
-
-.mail-util {
-    display: flex;
-}
-
-.clean-list {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    font-size: 1.4rem;
-    line-height: 93px;
-    background-color: #699B31;
-    box-shadow: 5px 0px 0px 0px #CFE1CC;
-}
-
-.compose-form {
-    display: grid;
-}
+    h1,
+    h3 {
+        margin: 0;
+    }
+    
+    .email-main {
+        display: grid;
+        grid-template-columns: 1fr 10fr;
+        grid-gap: 10px;
+    }
+    
+    .mail-preview {
+        margin: 8px;
+        background-color: rgb(105, 155, 49);
+        cursor: pointer;
+        box-shadow: -9px -5px 0px 0px #cfe1cc;
+        padding: 5px;
+    }
+    
+    .email-preview:not(:last-child) {
+        border-bottom: 1px solid black;
+    }
+    
+    .fa-star:before {
+        font-size: 1.4rem;
+    }
+    
+    .fa-star:active {
+        color: yellow;
+    }
+    
+    .fa-trash:before {
+        font-size: 1.4rem;
+        margin-left: 20px;
+    }
+    
+    .mail-util {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    
+    .clean-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        font-size: 1.4rem;
+        line-height: 92px;
+        background-color: #699B31;
+        box-shadow: 5px 0px 0px 0px #CFE1CC;
+        text-align: center;
+        border-bottom: 1px solid black;
+        cursor: pointer;
+    }
+    
+    .compose-form {
+        display: grid;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    
+    textarea {
+        height: 150px;
+        font-size: 1.25rem;
+    }
+    
+    #root>section>div>section>article>a {
+        color: black;
+    }
+    
+    #root>section>div>form>input {
+        font-size: 1.25rem;
+    }
+    
+    #root>section>div>form>button {
+        padding: 20px;
+        font-size: 1.25rem;
+    }
+    
+    #root>section>div>section:nth-child(1)>ul>li:nth-child(1) {
+        font-size: 2.8rem;
+    }
+    
+    #root>section>div>section:nth-child(1)>ul>li:nth-child() {
+        cursor: pointer;
+    }
+    
+    #root>section>div>section:nth-child(1)>p {
+        text-align: center;
+        margin: 0;
+        font-size: 2rem;
+        cursor: pointer;
+        background-color: #699B31;
+    }
