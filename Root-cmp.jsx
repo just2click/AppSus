@@ -5,8 +5,9 @@ import { MailCompose } from './Mail/cmps/MailCompose.jsx'
 import { Mail } from './pages/Mail.jsx'
 import { Home } from './pages/Home.jsx'
 import { Keep } from './pages/Keep.jsx'
+// import { Books } from './pages/Books.jsx'
 // import { NotePreview } from './Keep/cmps/Note-preview.jsx'
-// import { AppFooter } from './main-cmps/App-Footer.jsx'
+
 const Router = ReactRouterDOM.HashRouter
 const { Route, Switch } = ReactRouterDOM
 
@@ -17,11 +18,12 @@ export class RootCmp extends React.Component {
                 <section className="root-app">
                     <AppHeader />
                     <Switch>
-                        {/* <Route path="/keep/:keepId" component={NotePreview} /> */}
+
                         <Route path="/mail/compose/:newMail?" component={MailCompose} />
                         <Route path="/mail/:mailId" component={MailDetails} />
                         <Route path="/keep" component={Keep} />
                         <Route path="/mail" component={Mail} />
+                        {/* <Route path="/books" component={Books} /> */}
                         <Route path="/" component={Home} />
                     </Switch>
                     <AppFooter />

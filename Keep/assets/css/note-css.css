@@ -1,15 +1,45 @@
 .notes-controller {
     text-align: center;
     background-color: #baf7a9;
-    margin: -2%;
+    margin: 0 -2% -2% -2%;
+    padding: 2rem;
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+/* .app-title {
+    margin-top: 2rem;
+} */
+
+.top-area {
+    display: grid;
+    grid-template-columns: 10fr 1fr 1fr;
+}
+
+.filter {
+    list-style: none;
+    display: inline-grid;
+}
+
+.filter li {
+    cursor: pointer;
+    transition: 0.15s;
+    display: inline;
+    /* margin-left: 1rem; */
+    font-weight: bold;
+}
+
+.filter li:hover {
+    color: rgb(66, 247, 66);
 }
 
 .add-note {
-    margin: 4rem auto;
+    margin: 4rem 10rem 4rem 27rem;
     width: 50%;
     box-shadow: 1px 0px 4px 0px black;
     padding: 2rem;
     background-color: white;
+    /* float: right;*/
 }
 
 .add-note input {
@@ -27,14 +57,12 @@
 span {
     float: right;
     margin-top: -0.8rem;
-    margin-right: 1.2rem;
     font-size: x-large;
 }
 
 .notes-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
     grid-gap: 1rem;
     column-count: 5;
     margin: 5%;
@@ -48,7 +76,13 @@ span {
     color: rgb(0, 0, 0);
     padding: 16px;
     transition: 0.2s;
-    box-shadow: 2px -1px 5px 0px black;
+    box-shadow: 5px 3px 12px 0px black;
+}
+
+.pinImg {
+    width: 4rem;
+    margin-top: -2rem;
+    margin-bottom: 11px;
 }
 
 .fas {
@@ -92,7 +126,12 @@ span {
 }
 
 .todo-type {
-    height: fit-content
+    height: fit-content;
+    cursor: pointer;
+}
+
+.done {
+    text-decoration: line-through;
 }
 
 .video-type {

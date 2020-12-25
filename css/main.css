@@ -17,7 +17,7 @@
     background-color: #535a58;
     color: white;
     padding: 1.5rem;
-    box-shadow: 1px 3px 6px 0px black;
+    box-shadow: black 1px 3px 3px 14px;
     margin: 0 -1rem;
     list-style: none;
     display: flex;
@@ -58,4 +58,9 @@ footer {
     text-align: center;
     font-size: 1.1rem;
     font-weight: 700;
+    margin: 0 -2% -2% -2%;
+    padding: 3rem;
+    background-color: #082008;
+    color: white;
+    box-shadow: 5px -2px 5px 1px black;
 }

@@ -12,7 +12,9 @@ export const noteService = {
     // add,
     addNote,
     changeUrl,
-    changeColor
+    changeColor,
+    changeTitle,
+    changeTxt
 }
 var gNotes;
 _createNotes();
@@ -20,6 +22,7 @@ _createNotes();
 
 function _createNotes() {
     gNotes = storageService.load(KEY)
+    console.log(gNotes, '!!!!!');
     if (!gNotes || !gNotes.length) {
         gNotes = _getDemoNotes()
         _saveNotesToStorage();
@@ -48,6 +51,29 @@ function addNote(newNote) {
     gNotes = [newNoteToAdd, ...gNotes]
     console.log(newInfo)
     _saveNotesToStorage()
+        // const Toast = Swal.mixin({
+        //     toast: true,
+        //     position: 'top-end',
+        //     showConfirmButton: false,
+        //     timer: 3000,
+        //     timerProgressBar: true,
+        //     didOpen: (toast) => {
+        //         toast.addEventListener('mouseenter', Swal.stopTimer)
+        //         toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //     }
+        // })
+
+    // Toast.fire({
+    //     icon: 'success',
+    //     title: 'Signed in successfully'
+    // })
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your work has been saved',
+        showConfirmButton: false,
+        timer: 1500
+    })
     return Promise.resolve(gNotes)
 }
 
@@ -63,7 +89,8 @@ function _getDemoNotes() {
             id: utilsService.makeId(),
             info: {
                 txt: "Fullstack Me Baby!"
-            }
+            },
+            isPinned: false
         },
         {
             color: '#dadada',
@@ -73,9 +100,7 @@ function _getDemoNotes() {
                 url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Robert_Bunsen.jpg',
                 title: 'nice picture!!'
             },
-            style: {
-                backgroundColor: 'green'
-            }
+            isPinned: true
         },
         {
             color: '#dadada',
@@ -87,7 +112,8 @@ function _getDemoNotes() {
                     { txt: "Do that", doneAt: null },
                     { txt: "Do this", doneAt: 187111111 }
                 ]
-            }
+            },
+            isPinned: true
         },
         {
             color: '#dadada',
@@ -97,9 +123,7 @@ function _getDemoNotes() {
                 url: 'https://www.youtube.com/embed/tgbNymZ7vqY',
                 title: "nice vid!!"
             },
-            style: {
-                backgroundColor: "#00d"
-            }
+            isPinned: false
         }
 
 
@@ -113,40 +137,95 @@ function _getDemoNotes() {
 
 function _saveNotesToStorage() {
     storageService.save(KEY, gNotes)
+    console.log(gNotes);
 }
 
 function remove(noteId) {
-    console.log('removing', noteId);
-
+    Swal.fire(
+        'Deleted!',
+        'Your note has been deleted.',
+        'warning'
+    )
     gNotes = gNotes.filter(note => note.id !== noteId)
     _saveNotesToStorage()
     return Promise.resolve()
 }
 
-function changeUrl(note, url) {
+function changeUrl(note, url, ev) {
+    console.log('ev:', ev);
     const noteToUpdate = {
+        ...note,
         info: {
             url
-        },
-        ...note
+        }
     }
+    console.log('updated:', noteToUpdate);
     const notesCopy = [...gNotes]
-    const noteIdx = notesCopy.findIndex(note => note.id === note.id)
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
     notesCopy[noteIdx] = noteToUpdate
+    console.log(notesCopy, 'notesCopy');
     gNotes = notesCopy
+
     _saveNotesToStorage();
-    return Promise.resolve(noteToUpdate)
+    return Promise.resolve(gNotes)
 }
 
-function changeColor(note, color) {
+function changeTitle(note, title, ev) {
+    console.log('ev:', ev);
     const noteToUpdate = {
-        color,
-        ...note
+        ...note,
+        info: {
+            title
+        }
     }
+    console.log('updated:', noteToUpdate);
     const notesCopy = [...gNotes]
-    const noteIdx = notesCopy.findIndex(note => note.id === note.id)
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
+    notesCopy[noteIdx] = noteToUpdate
+    console.log(notesCopy, 'notesCopy');
+    gNotes = notesCopy
+
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
+
+function changeTxt(note, txt, ev) {
+    console.log('ev:', ev);
+    const noteToUpdate = {
+        ...note,
+        info: {
+            txt
+        }
+    }
+    console.log('updated:', noteToUpdate);
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
+    notesCopy[noteIdx] = noteToUpdate
+    console.log(notesCopy, 'notesCopy');
+    gNotes = notesCopy
+
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
+
+
+function changeColor(note, color) {
+
+    const noteToUpdate = {
+        ...note,
+        color
+    }
+
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
     notesCopy[noteIdx] = noteToUpdate
     gNotes = notesCopy
+    console.log(gNotes, '@@@@@');
     _saveNotesToStorage();
-    return Promise.resolve(noteToUpdate)
+
+    return Promise.resolve(gNotes)
 }

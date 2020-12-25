@@ -3,42 +3,88 @@
 export class NoteTxt extends React.Component {
 
     state = {
-        color: '#dadada',
-        isColorClicked: false
+        isColorClicked: false,
+        isPinned: false,
+        isEditTxt: false,
+        text: this.props.info.txt
     }
+
     editColor = (ev) => {
         ev.preventDefault();
         let isColorClicked = this.state.isColorClicked
-        isColorClicked = true
+        isColorClicked = isColorClicked ? false : true
         this.setState({ isColorClicked })
     }
-
-    changeColor = (currColor) => {
-        let color = this.state.color
-        color = currColor
-        this.setState({ color })
+    clearpalette = () => {
         let isColorClicked = this.state.isColorClicked
         isColorClicked = false
         this.setState({ isColorClicked })
     }
+    editTxt = (ev) => {
+        ev.preventDefault()
+        let isEditTxt = this.state.isEditTxt
+        isEditTxt = isEditTxt ? false : true
+        this.setState({ isEditTxt })
+    }
+    clearEditTxt = () => {
+        let isEditTxt = this.state.isEditTxt
+        isEditTxt = false
+        this.setState({ isEditTxt })
+    }
+    onTextChange = (ev) => {
+        let value = ev.target.value
+        let text = { ...this.state.text }
+        text = value
+        this.setState({ text })
+    }
+    addPin = () => {
+        let isPinned = this.state.isPinned
+        isPinned = isPinned ? false : true
+        this.setState({ isPinned })
+    }
     render() {
-        const { color } = this.state
+        const { color } = this.props.note
         const { txt } = this.props.info
-        const { isColorClicked } = this.state
+        const { isColorClicked, isPinned, isEditTxt } = this.state
+        const { note } = this.props
         return <article className="note-preview txt-type" style={{ backgroundColor: color }} >
+            {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             <h2>{txt}</h2>
+            {isEditTxt && <div><textarea onChange={this.onTextChange} value={this.state.text}>{txt}</textarea> <button onClick={(ev) => {
+                this.props.changeTxt(note, this.state.text, ev)
+                this.clearEditTxt()
+            }}>Update</button></div>}
             <p className="edit" >
-                <i className="fas fa-thumbtack"></i>
+                <i className="fas fa-thumbtack" onClick={this.addPin}></i>
                 <i className="fas fa-palette" onClick={this.editColor}></i>
-                <i className="fas fa-edit"></i>
-                <i className="fas fa-trash" onClick={() => { this.props.remove(this.props.note.id) }} ></i>
+                <i className="fas fa-edit" onClick={this.editTxt}></i>
+                <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
 
                 {isColorClicked && <ul className="colorsEdit edit">
-                    <li><i class="fas fa-circle" style={{ color: 'yellow' }} onClick={() => { this.changeColor('yellow') }}></i></li>
-                    <li><i class="fas fa-circle" style={{ color: 'red' }} onClick={() => { this.changeColor('red') }}></i></li>
-                    <li><i class="fas fa-circle" style={{ color: 'purple' }} onClick={() => { this.changeColor('purple') }}></i></li>
-                    <li><i class="fas fa-circle" style={{ color: 'blue' }} onClick={() => { this.changeColor('blue') }}></i></li>
-                    <li><i class="fas fa-circle" style={{ color: 'orange' }} onClick={() => { this.changeColor('orange') }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'yellowgreen' }} onClick={() => {
+                        this.props.changeColor(note, 'yellowgreen')
+                        this.clearpalette()
+                    }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'burlywood' }} onClick={() => {
+                        this.props.changeColor(note, 'burlywood')
+                        this.clearpalette()
+                    }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'coral' }} onClick={() => {
+                        this.props.changeColor(note, 'coral')
+                        this.clearpalette()
+                    }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'crimson' }} onClick={() => {
+                        this.props.changeColor(note, 'crimson')
+                        this.clearpalette()
+                    }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'gray' }} onClick={() => {
+                        this.props.changeColor(note, 'gray')
+                        this.clearpalette()
+                    }}></i></li>
+                    <li><i className="fas fa-tint" style={{ color: 'teal' }} onClick={() => {
+                        this.props.changeColor(note, 'teal')
+                        this.clearpalette()
+                    }}></i></li>
                 </ul>}
             </p>
         </article>
