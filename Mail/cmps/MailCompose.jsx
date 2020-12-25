@@ -34,16 +34,16 @@ export class MailCompose extends React.Component {
         ev.preventDefault();
         mailService.send(this.state.newMail)
             .then(sentMail => {
-                // console.log('email sent:', sentMail)
+                console.log('email sent:', sentMail)
                 this.props.onSent();
             })
     }
     render() {
         return (
             <form className="compose-form" onSubmit={this.onSendMail}>
-                <input name="address" placeholder="From" value={this.state.newMail.address} onChange={this.onInputChange} />
+                <input name="address" placeholder="Cc:" value={this.state.newMail.address} onChange={this.onInputChange} />
                 <input name="subject" placeholder="Subject" value={this.state.newMail.subject} onChange={this.onInputChange} />
-                <textarea name="body" type="text-area" placeholder="Content" value={this.state.newMail.body} onChange={this.onInputChange}></textarea>
+                <textarea name="body" type="text-area" raw="500" placeholder="Content" value={this.state.newMail.body} onChange={this.onInputChange}></textarea>
                 <button type="submit" onSubmit={this.onSendMail}>Send</button>
             </form>
         )

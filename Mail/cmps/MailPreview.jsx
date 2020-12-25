@@ -7,7 +7,7 @@ export function MailPreview({ mail, onRemove }) {
     <NavLink  to={`/mail/${mail.id}`} >
     <h1>From: {mail.address}</h1>
     <h3>Subject: {mail.subject}</h3>
-    <p>{mail.body}</p>
+    <p>{mail.body.substr(0,15)}...</p>
         </NavLink>
     <div className="mail-util">
     <p onClick={() => {
