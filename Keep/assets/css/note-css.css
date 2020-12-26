@@ -144,8 +144,26 @@ span {
     cursor: pointer;
 }
 
-.done {
+.add-todo {
+    border: 0;
+    border-bottom: 2px solid #171717;
+}
+
+.add-todo:focus {
+    outline: none;
+}
+
+.Done {
     text-decoration: line-through;
+}
+
+.remove-todo {
+    font-size: small;
+    margin-top: 0.2rem;
+}
+
+.remove-todo:hover {
+    color: chartreuse;
 }
 
 .video-type {

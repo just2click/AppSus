@@ -15,8 +15,9 @@ export const noteService = {
     changeColor,
     changeTitle,
     changeTxt,
-    // todoClicked,
-    // addTodo
+    todoClicked,
+    addTodo,
+    removeTodo
 }
 var gNotes;
 _createNotes();
@@ -24,7 +25,6 @@ _createNotes();
 
 function _createNotes() {
     gNotes = storageService.load(KEY)
-    console.log(gNotes, '!!!!!');
     if (!gNotes || !gNotes.length) {
         gNotes = _getDemoNotes()
         _saveNotesToStorage();
@@ -32,7 +32,6 @@ function _createNotes() {
 }
 
 function addNote(newNote) {
-    console.log('adding new note', newNote);
     var newInfo = {}
     switch (newNote.type) {
         case "NoteText":
@@ -51,7 +50,6 @@ function addNote(newNote) {
     }
     const newNoteToAdd = { color: '#f1f1f1', id: utilsService.makeId(), type: newNote.type, info: newInfo }
     gNotes = [newNoteToAdd, ...gNotes]
-    console.log(newInfo)
     _saveNotesToStorage()
         // const Toast = Swal.mixin({
         //     toast: true,
@@ -111,8 +109,8 @@ function _getDemoNotes() {
             info: {
                 label: "How was it:",
                 todos: [
-                    { txt: "Do that", doneAt: null },
-                    { txt: "Do this", doneAt: 187111111 }
+                    { txt: "Do that", id: utilsService.makeId(), doneAt: null, isDone: false },
+                    { txt: "Do this", id: utilsService.makeId(), doneAt: 187111111, isDone: false }
                 ]
             },
             decoration: 'line-through',
@@ -140,7 +138,6 @@ function _getDemoNotes() {
 
 function _saveNotesToStorage() {
     storageService.save(KEY, gNotes)
-    console.log(gNotes);
 }
 
 function remove(noteId) {
@@ -182,12 +179,10 @@ function changeTitle(note, title, ev) {
             title
         }
     }
-    console.log('updated:', noteToUpdate);
     const notesCopy = [...gNotes]
     const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
 
     notesCopy[noteIdx] = noteToUpdate
-    console.log(notesCopy, 'notesCopy');
     gNotes = notesCopy
 
     _saveNotesToStorage();
@@ -202,10 +197,23 @@ function changeTxt(note, txt, ev) {
             txt
         }
     }
-    console.log('updated:', noteToUpdate);
     const notesCopy = [...gNotes]
     const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
 
+    notesCopy[noteIdx] = noteToUpdate
+    gNotes = notesCopy
+
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
+
+function todoClicked(note, todoId, ev) {
+    console.log('ev:', ev);
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+    const noteToUpdate = {...note }
+    const todoIdx = noteToUpdate.info.todos.findIndex(currTodo => todoId === currTodo.id)
+    noteToUpdate.info.todos[todoIdx].isDone = noteToUpdate.info.todos[todoIdx].isDone ? true : false
     notesCopy[noteIdx] = noteToUpdate
     console.log(notesCopy, 'notesCopy');
     gNotes = notesCopy
@@ -214,32 +222,31 @@ function changeTxt(note, txt, ev) {
     return Promise.resolve(gNotes)
 }
 
-// function todoClicked(note, todo, ev) {
-//     console.log('ev:', ev);
-//     // const noteToUpdate = {...note }
 
-//     // console.log('updated:', noteToUpdate);
-//     const notesCopy = [...gNotes]
-//     const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+function addTodo(note, todo, ev) {
+    console.log(ev);
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+    const noteToUpdate = {...note }
+    noteToUpdate.info.todos.push({ txt: todo, id: utilsService.makeId(), isDone: false, doneAt: null })
+    notesCopy[noteIdx] = noteToUpdate
+    console.log(notesCopy, 'notesCopy');
+    gNotes = notesCopy
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
 
-//     const noteToUpdate = {...note }
-//         // notesCopy[noteIdx] = noteToUpdate
-//     const todoIdx = noteToUpdate.info.todos.findIndex(currTodo => todo.is === currTodo.id)
-//     noteToUpdate.info.todos[todoIdx] = todo
-//     noteToUpdate = {...note }
-//     notesCopy[noteIdx] = noteToUpdate
-//     console.log(notesCopy, 'notesCopy');
-//     gNotes = notesCopy
-
-//     _saveNotesToStorage();
-//     return Promise.resolve(gNotes)
-// }
-
-
-// function addTodo(note, todo, ev) {
-//     console.log(ev);
-//     const note
-// }
+function removeTodo(note, todoId) {
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+    const noteToUpdate = {...note }
+    noteToUpdate.info.todos = noteToUpdate.info.todos.filter(todo => todo.id !== todoId)
+    notesCopy[noteIdx] = noteToUpdate
+    console.log(notesCopy, 'notesCopy');
+    gNotes = notesCopy
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
 
 function changeColor(note, color) {
 
@@ -253,7 +260,6 @@ function changeColor(note, color) {
 
     notesCopy[noteIdx] = noteToUpdate
     gNotes = notesCopy
-    console.log(gNotes, '@@@@@');
     _saveNotesToStorage();
 
     return Promise.resolve(gNotes)

@@ -51,7 +51,7 @@ export class NoteVideo extends React.Component {
         return <article className="note-preview video-type" style={{ backgroundColor: color }}>
 
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
-            <h2>{title}</h2>
+            {/* <h2>{title}</h2> */}
             <iframe width="300" height="180"
                 src={url}>
             </iframe>

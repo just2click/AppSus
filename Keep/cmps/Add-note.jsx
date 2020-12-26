@@ -36,7 +36,6 @@ export class AddNote extends React.Component {
 
     render() {
         const { note } = this.state.newCmp
-        console.log(this.state.newCmp);
         return <section>
             <form onSubmit={this.addNote} className="add-note">
                 <input value={note} placeholder={this.state.txt} type="text" name="note" onChange={this.onInputChange} autoComplete="off" />

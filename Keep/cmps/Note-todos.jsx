@@ -7,7 +7,6 @@ export class NoteTodos extends React.Component {
         todos: [],
         todo: '',
         isPinned: false,
-        decoration: 'Done',
         isEditTodo: false
     }
 
@@ -20,28 +19,45 @@ export class NoteTodos extends React.Component {
     //     status = (status === 'not-done') ? 'done' : 'not-done'
     //     this.setState({ status })
     // }
+
+    componentDidMount() {
+        this.loadTodos()
+    }
+    loadTodos = () => {
+        this.setState({
+            todos: this.props.info.todos
+        }, () => console.log(this.state.todos))
+    }
     editTodo = (ev) => {
         ev.preventDefault()
         let isEditTodo = this.state.isEditTodo
         isEditTodo = isEditTodo ? false : true
         this.setState({ isEditTodo })
     }
-    onAddTodo = (ev) => {
+    // onAddTodo = (ev) => {
+    //     let value = ev.target.value
+    //     let todo = { ...this.state.todo }
+    //     todo = value
+    //     this.setState({ todo })
+
+    // }
+    onInputChangeTodo = (ev) => {
         let value = ev.target.value
         let todo = { ...this.state.todo }
         todo = value
         this.setState({ todo })
-
     }
     clearEditTodo = () => {
         let isEditTodo = this.state.isEditTodo
         isEditTodo = false
         this.setState({ isEditTodo })
     }
-    changeClass = () => {
-        let decoration = this.state.decoration
-        decoration = decoration ? '' : 'Done'
-        this.setState({ decoration })
+    changeClass = (todoId) => {
+
+        let theTodo = this.state.todos.find(currTodo => currTodo.id === todoId)
+        console.log('theTodo:', theTodo);
+        theTodo.isDone = !theTodo.isDone
+        this.setState({ todos: [...this.state.todos] })
     }
 
     editColor = (ev) => {
@@ -63,24 +79,26 @@ export class NoteTodos extends React.Component {
     }
     render() {
         const { color } = this.props.note
-        const { decoration, isEditTodo } = this.state
-        // const {decoration}=this.props.note
         const { label, todos } = this.props.info
-        const { isColorClicked, isPinned } = this.state
+        const { isColorClicked, isPinned, isEditTodo, todo } = this.state
         const { note } = this.props
         return <article className="note-preview todo-type" style={{ backgroundColor: color }} >
+            {/* {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />} */}
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             <h2>{label}</h2>
             <ul>
                 {todos.map((todo, idx) => {
-                    return <li key={idx} className={`${this.state.decoration}`} onClick={() => {
-                        // this.props.todoClicked(note, todo)
-                        this.changeClass()
-                    }}>{todo.txt}</li>
+                    return <li key={idx} className={(todo.isDone) ? 'Done' : ''} onClick={() => {
+                        this.props.todoClicked(note, todo.id)
+                        this.changeClass(todo.id)
+                    }}>{todo.txt}
+                        <span className="remove-todo"><i className="fas fa-times" onClick={() => {
+                            this.props.removeTodo(note, todo.id)
+                        }}></i></span></li>
                 })}
             </ul>
-            {isEditTodo && <div><input value={this.state.todo} /><i class="fas fa-plus" onClick={(ev) => {
-                this.props.addTodo(note, this.state.todo, ev)
+            {isEditTodo && <div><input className="add-todo" value={todo} placeholder="Add Todo" onChange={this.onInputChangeTodo} style={{ backgroundColor: color }} /><i className="fas fa-plus" onClick={() => {
+                this.props.addTodo(note, todo)
                 this.clearEditTodo()
             }}></i></div>}
             <p className="edit" >

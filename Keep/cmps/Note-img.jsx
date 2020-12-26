@@ -71,12 +71,10 @@ export class NoteImg extends React.Component {
         const { url, title } = this.props.info
         const { isEditUrl, isEditTitle, isColorClicked, isPinned } = this.state
         const { note } = this.props
-
-        console.log('the note', this.props.note);
         return <article className="note-preview img-type" style={{ backgroundColor: color }}>
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             {/* <h1>{title}</h1> */}
-            <input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} />
+            {/* <input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} /> */}
             <img className="img" src={url} />
 
             {isEditUrl && <div><input className="change-url" type="text" placeholder="Enter img-url" name="url" onChange={this.onInputChangeUrl} value={this.state.url} style={{ backgroundColor: color }} />

@@ -24,8 +24,8 @@ export class Keep extends React.Component {
             this.loadNotes()
         })
     }
-    addNote = (note) => {
-        noteService.addNote(note)
+    addNote = (note, todo) => {
+        noteService.addNote(note, todo)
             .then(notes => {
                 this.setState({ notes })
             })
@@ -55,18 +55,23 @@ export class Keep extends React.Component {
             this.setState({ notes })
         })
     }
-    // onTodoClicked = (note, todoId) => {
-    //     // ev.preventDefault()
-    //     noteService.todoClicked(note, todoId).then(notes => {
-    //         this.setState({ notes })
-    //     })
-    // }
-    // onAddTodo = (note, todo, ev) => {
-    //     ev.preventDefault()
-    //     noteService.addTodo(note, todo).then(notes => {
-    //         this.setState({ notes })
-    //     })
-    // }
+    onTodoClicked = (note, todoId) => {
+        // ev.preventDefault()
+        noteService.todoClicked(note, todoId).then(notes => {
+            this.setState({ notes })
+        })
+    }
+    onAddTodo = (note, todo) => {
+        // ev.preventDefault()
+        noteService.addTodo(note, todo).then(notes => {
+            this.setState({ notes })
+        })
+    }
+    onRemoveTodo = (note, todoId) => {
+        noteService.removeTodo(note, todoId).then(notes => {
+            this.setState({ notes })
+        })
+    }
     onSetFilter = (filterBy) => {
         console.log('filterBy', filterBy);
         this.setState({ filterBy })
@@ -96,7 +101,7 @@ export class Keep extends React.Component {
 
                     </section>
 
-                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} todoClicked={this.onTodoClicked} addTodo={this.onAddTodo} />
+                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} todoClicked={this.onTodoClicked} addTodo={this.onAddTodo} removeTodo={this.onRemoveTodo} />
                 </section >
             )
         }
