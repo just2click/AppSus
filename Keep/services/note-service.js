@@ -14,7 +14,9 @@ export const noteService = {
     changeUrl,
     changeColor,
     changeTitle,
-    changeTxt
+    changeTxt,
+    // todoClicked,
+    // addTodo
 }
 var gNotes;
 _createNotes();
@@ -70,7 +72,7 @@ function addNote(newNote) {
     Swal.fire({
         position: 'top-end',
         icon: 'success',
-        title: 'Your work has been saved',
+        title: 'Your note has been saved',
         showConfirmButton: false,
         timer: 1500
     })
@@ -83,7 +85,7 @@ function query() {
 
 function _getDemoNotes() {
     const notes = [{
-            color: '#dadada',
+            color: '#F1F1F1',
             type: 'NoteText',
             isPinned: true,
             id: utilsService.makeId(),
@@ -93,7 +95,7 @@ function _getDemoNotes() {
             isPinned: false
         },
         {
-            color: '#dadada',
+            color: '#F1F1F1',
             type: 'NoteImg',
             id: utilsService.makeId(),
             info: {
@@ -103,7 +105,7 @@ function _getDemoNotes() {
             isPinned: true
         },
         {
-            color: '#dadada',
+            color: '#F1F1F1',
             type: 'NoteTodos',
             id: utilsService.makeId(),
             info: {
@@ -113,10 +115,11 @@ function _getDemoNotes() {
                     { txt: "Do this", doneAt: 187111111 }
                 ]
             },
+            decoration: 'line-through',
             isPinned: true
         },
         {
-            color: '#dadada',
+            color: '#F1F1F1',
             type: 'NoteVideo',
             id: utilsService.makeId(),
             info: {
@@ -211,6 +214,32 @@ function changeTxt(note, txt, ev) {
     return Promise.resolve(gNotes)
 }
 
+// function todoClicked(note, todo, ev) {
+//     console.log('ev:', ev);
+//     // const noteToUpdate = {...note }
+
+//     // console.log('updated:', noteToUpdate);
+//     const notesCopy = [...gNotes]
+//     const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
+//     const noteToUpdate = {...note }
+//         // notesCopy[noteIdx] = noteToUpdate
+//     const todoIdx = noteToUpdate.info.todos.findIndex(currTodo => todo.is === currTodo.id)
+//     noteToUpdate.info.todos[todoIdx] = todo
+//     noteToUpdate = {...note }
+//     notesCopy[noteIdx] = noteToUpdate
+//     console.log(notesCopy, 'notesCopy');
+//     gNotes = notesCopy
+
+//     _saveNotesToStorage();
+//     return Promise.resolve(gNotes)
+// }
+
+
+// function addTodo(note, todo, ev) {
+//     console.log(ev);
+//     const note
+// }
 
 function changeColor(note, color) {
 

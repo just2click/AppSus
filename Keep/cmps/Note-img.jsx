@@ -15,9 +15,18 @@ export class NoteImg extends React.Component {
         ev.preventDefault();
         let isEditUrl = this.state.isEditUrl
         isEditUrl = isEditUrl ? false : true;
+        this.setState({ isEditUrl })
+    }
+    editTitle = (ev) => {
+        ev.preventDefault()
         let isEditTitle = this.state.isEditTitle
         isEditTitle = isEditTitle ? false : true
-        this.setState({ isEditUrl, isEditTitle })
+        this.setState({ isEditTitle })
+    }
+    clearUrlInput = () => {
+        let isEditUrl = this.state.isEditUrl
+        isEditUrl = false
+        this.setState({ isEditUrl })
     }
     editColor = (ev) => {
         ev.preventDefault();
@@ -40,12 +49,17 @@ export class NoteImg extends React.Component {
     };
     onInputChangeTitle = (ev) => {//on input change
         let value = ev.target.value
-        let title = { ...this.state.title }
+        let title = this.state.title
         title = value
         this.setState({
             title
         });
     };
+    clearTitleInput = () => {
+        let isEditTitle = this.state.isEditTitle
+        isEditTitle = false
+        this.setState({ isEditTitle })
+    }
     addPin = () => {
         let isPinned = this.state.isPinned
         isPinned = isPinned ? false : true
@@ -62,13 +76,25 @@ export class NoteImg extends React.Component {
         return <article className="note-preview img-type" style={{ backgroundColor: color }}>
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             <h1>{title}</h1>
+
             <img className="img" src={url} />
 
-            {isEditUrl && <form onSubmit={(ev) => { this.props.changeUrl(note, this.state.url, ev) }} ><input className="change-url" type="text" placeholder="Enter img-url" name="url" onChange={this.onInputChangeUrl} value={this.state.url} /></form>}
-            {isEditTitle && <form onSubmit={(ev) => { this.props.changeTitle(note, this.state.title, ev) }} ><input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} /></form>}
+            {isEditUrl && <div><input className="change-url" type="text" placeholder="Enter img-url" name="url" onChange={this.onInputChangeUrl} value={this.state.url} style={{ backgroundColor: color }} />
+                <i className="fas fa-external-link-alt" onClick={(ev) => {
+                    this.props.changeUrl(note, this.state.url, ev)
+                    this.clearUrlInput()
+                }} ></i>
+            </div>}
+            {isEditTitle && <div><input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} />
+                <i class="fas fa-pencil-alt" onClick={(ev) => {
+                    this.props.changeTitle(note, this.state.title, ev)
+                    this.clearTitleInput()
+                }}></i>
+            </div>}
             <p className="edit" >
                 <i className="fas fa-thumbtack" onClick={this.addPin} ></i>
-                <i className="fas fa-palette" onClick={this.editColor}></i>
+                <i className="fas fa-palette" onMouseOver={this.editColor}></i>
+                <i className="fas fa-pencil-alt" onClick={this.editTitle}></i>
                 <i className="fas fa-edit" onClick={this.edit}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
                 {isColorClicked && <ul className="colorsEdit edit">
@@ -88,8 +114,8 @@ export class NoteImg extends React.Component {
                         this.props.changeColor(note, 'crimson')
                         this.clearpalette()
                     }}></i></li>
-                    <li><i className="fas fa-tint" style={{ color: 'gray' }} onClick={() => {
-                        this.props.changeColor(note, 'gray')
+                    <li><i className="fas fa-tint" style={{ color: 'lightgray' }} onClick={() => {
+                        this.props.changeColor(note, 'lightgray')
                         this.clearpalette()
                     }}></i></li>
                     <li><i className="fas fa-tint" style={{ color: 'teal' }} onClick={() => {

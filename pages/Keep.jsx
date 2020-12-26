@@ -55,6 +55,18 @@ export class Keep extends React.Component {
             this.setState({ notes })
         })
     }
+    // onTodoClicked = (note, todoId) => {
+    //     // ev.preventDefault()
+    //     noteService.todoClicked(note, todoId).then(notes => {
+    //         this.setState({ notes })
+    //     })
+    // }
+    // onAddTodo = (note, todo, ev) => {
+    //     ev.preventDefault()
+    //     noteService.addTodo(note, todo).then(notes => {
+    //         this.setState({ notes })
+    //     })
+    // }
     onSetFilter = (filterBy) => {
         console.log('filterBy', filterBy);
         this.setState({ filterBy })
@@ -81,8 +93,10 @@ export class Keep extends React.Component {
                             <li onClick={() => { this.onSetFilter('text') }}>Text</li>
                             <li onClick={() => { this.onSetFilter('img') }}>Img</li>
                         </ul>
+
                     </section>
-                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} />
+
+                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} todoClicked={this.onTodoClicked} addTodo={this.onAddTodo} />
                 </section >
             )
         }

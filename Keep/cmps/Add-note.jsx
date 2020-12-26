@@ -1,6 +1,6 @@
 export class AddNote extends React.Component {
     state = {
-        txt: 'What\'s on your mind...',
+        txt: 'Choose A Type...',
         newCmp: {
             note: '',
             type: '',
@@ -9,11 +9,11 @@ export class AddNote extends React.Component {
 
     addNote = (ev) => {
         ev.preventDefault();
-        console.log('addnote');
-        let txt = this.state.txt
-        txt = 'What\'s on your mind...'
-        this.setState({ txt })
         this.props.addNote(this.state.newCmp)
+        let txt = this.state.txt
+        txt = 'Choose A Type...'
+        this.setState({ txt })
+
 
     }
 

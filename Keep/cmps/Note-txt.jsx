@@ -50,13 +50,14 @@ export class NoteTxt extends React.Component {
         return <article className="note-preview txt-type" style={{ backgroundColor: color }} >
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             <h2>{txt}</h2>
-            {isEditTxt && <div><textarea onChange={this.onTextChange} value={this.state.text}>{txt}</textarea> <button onClick={(ev) => {
+            {isEditTxt && <div><textarea cols="15" rows="" onChange={this.onTextChange} value={this.state.text}>{txt}</textarea><i class="fas fa-plus" onClick={(ev) => {
                 this.props.changeTxt(note, this.state.text, ev)
                 this.clearEditTxt()
-            }}>Update</button></div>}
+            }}></i></div>}
+
             <p className="edit" >
                 <i className="fas fa-thumbtack" onClick={this.addPin}></i>
-                <i className="fas fa-palette" onClick={this.editColor}></i>
+                <i className="fas fa-palette" onMouseOver={this.editColor}></i>
                 <i className="fas fa-edit" onClick={this.editTxt}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
 
@@ -77,8 +78,8 @@ export class NoteTxt extends React.Component {
                         this.props.changeColor(note, 'crimson')
                         this.clearpalette()
                     }}></i></li>
-                    <li><i className="fas fa-tint" style={{ color: 'gray' }} onClick={() => {
-                        this.props.changeColor(note, 'gray')
+                    <li><i className="fas fa-tint" style={{ color: 'lightgray' }} onClick={() => {
+                        this.props.changeColor(note, 'lightgray')
                         this.clearpalette()
                     }}></i></li>
                     <li><i className="fas fa-tint" style={{ color: 'teal' }} onClick={() => {

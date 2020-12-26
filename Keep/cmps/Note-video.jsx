@@ -12,6 +12,11 @@ export class NoteVideo extends React.Component {
         isEditUrl = true;
         this.setState({ isEditUrl })
     }
+    clearUrlInput = () => {
+        let isEditUrl = this.state.isEditUrl
+        isEditUrl = false
+        this.setState({ isEditUrl })
+    }
     editColor = (ev) => {
         ev.preventDefault();
         let isColorClicked = this.state.isColorClicked
@@ -50,10 +55,14 @@ export class NoteVideo extends React.Component {
             <iframe width="300" height="180"
                 src={url}>
             </iframe>
-            {isEditUrl && <form onSubmit={(ev) => { this.props.changeUrl(note, this.state.url, ev) }} ><input className="change-url" type="text" placeholder="Enter video-url" name="url" onChange={this.onInputChange} value={this.state.url} /></form>}
+            {isEditUrl && <div><input className="change-url" type="text" placeholder="Enter video-url" name="url" onChange={this.onInputChange} value={this.state.url} style={{ backgroundColor: color }} />
+                <i className="fas fa-external-link-alt" onClick={(ev) => {
+                    this.props.changeUrl(note, this.state.url, ev)
+                    this.clearUrlInput()
+                }} ></i></div>}
             <p className="edit" >
                 <i className="fas fa-thumbtack" onClick={this.addPin}></i>
-                <i className="fas fa-palette" onClick={this.editColor}></i>
+                <i className="fas fa-palette" onMouseOver={this.editColor}></i>
                 <i className="fas fa-edit" onClick={this.editVidUrl}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
                 {isColorClicked && <ul className="colorsEdit edit">
@@ -73,8 +82,8 @@ export class NoteVideo extends React.Component {
                         this.props.changeColor(note, 'crimson')
                         this.clearpalette()
                     }}></i></li>
-                    <li><i className="fas fa-tint" style={{ color: 'gray' }} onClick={() => {
-                        this.props.changeColor(note, 'gray')
+                    <li><i className="fas fa-tint" style={{ color: 'lightgray' }} onClick={() => {
+                        this.props.changeColor(note, 'lightgray')
                         this.clearpalette()
                     }}></i></li>
                     <li><i className="fas fa-tint" style={{ color: 'teal' }} onClick={() => {

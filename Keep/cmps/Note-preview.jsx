@@ -10,20 +10,20 @@ export class NotePreview extends React.Component {
     render() {
         const { note } = this.props
         return (
-            <DynamicCmp info={note.info} currType={note.type} remove={this.props.remove} note={note} changeUrl={this.props.changeUrl} changeColor={this.props.changeColor} changeTitle={this.props.changeTitle} changeTxt={this.props.changeTxt} />
+            <DynamicCmp info={note.info} currType={note.type} remove={this.props.remove} note={note} changeUrl={this.props.changeUrl} changeColor={this.props.changeColor} changeTitle={this.props.changeTitle} changeTxt={this.props.changeTxt} todoClicked={this.props.todoClicked} addTodo={this.props.addTodo} />
         )
     }
 }
 
 
-function DynamicCmp({ info, currType, remove, note, changeUrl, changeColor, changeTitle, changeTxt }) {
+function DynamicCmp({ info, currType, remove, note, changeUrl, changeColor, changeTitle, changeTxt, todoClicked, addTodo }) {
     switch (currType) {
         case 'NoteText':
             return <NoteTxt info={info} remove={remove} note={note} changeColor={changeColor} changeTitle={changeTitle} changeTxt={changeTxt} />
         case 'NoteImg':
             return <NoteImg info={info} remove={remove} note={note} changeUrl={changeUrl} changeColor={changeColor} changeTitle={changeTitle} />
         case 'NoteTodos':
-            return <NoteTodos info={info} remove={remove} note={note} changeColor={changeColor} changeTitle={changeTitle} />
+            return <NoteTodos info={info} remove={remove} note={note} changeColor={changeColor} changeTitle={changeTitle} todoClicked={todoClicked} addTodo={addTodo} />
         case 'NoteVideo':
             return <NoteVideo info={info} remove={remove} note={note} changeUrl={changeUrl} changeColor={changeColor} changeTitle={changeTitle} />
         default:
