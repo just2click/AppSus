@@ -50,7 +50,7 @@ export class NoteTxt extends React.Component {
         return <article className="note-preview txt-type" style={{ backgroundColor: color }} >
             {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
             <h2>{txt}</h2>
-            {isEditTxt && <div><textarea cols="15" rows="" onChange={this.onTextChange} value={this.state.text}>{txt}</textarea><i class="fas fa-plus" onClick={(ev) => {
+            {isEditTxt && <div><textarea className="txt-place" cols="15" rows="" onChange={this.onTextChange} value={this.state.text}>{txt}</textarea><i class="fas fa-plus" onClick={(ev) => {
                 this.props.changeTxt(note, this.state.text, ev)
                 this.clearEditTxt()
             }}></i></div>}
