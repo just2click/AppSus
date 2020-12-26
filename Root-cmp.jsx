@@ -1,7 +1,6 @@
 import { AppHeader } from './main-cmps/App-Header.jsx'
 import { AppFooter } from './main-cmps/App-Footer.jsx'
 import { MailDetails } from './Mail/cmps/MailDetails.jsx'
-import { MailCompose } from './Mail/cmps/MailCompose.jsx'
 import { Keep } from './pages/Keep.jsx'
 import { Mail } from './pages/Mail.jsx'
 import { About } from './pages/About.jsx'
@@ -16,8 +15,11 @@ export class RootCmp extends React.Component {
                 <section className="root-app">
                     <AppHeader />
                     <Switch>
+<<<<<<< HEAD
                         {/* <Route path="/keep/:keepId" component={NotePreview} /> */}
                         {/* <Route path="/mail/compose/:newMail?" component={MailCompose} /> */}
+=======
+>>>>>>> 3e08e4970f9015b5c61494453dd36376330f0c8d
                         <Route path="/mail/:mailId" component={MailDetails} />
                         <Route path="/keep" component={Keep} />
                         <Route path="/mail" component={Mail} />
