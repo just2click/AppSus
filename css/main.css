@@ -17,13 +17,8 @@
     background-color: #535a58;
     color: white;
     padding: 1.5rem;
-<<<<<<< HEAD
-    box-shadow: black 1px 3px 3px 14px;
-    margin: 0 -1rem;
-=======
     box-shadow: 1px 3px 6px 0px black;
     margin: 0;
->>>>>>> 4b33cd7df86433cee65f979bd664df933031e67d
     list-style: none;
     display: flex;
 }

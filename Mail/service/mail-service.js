@@ -25,9 +25,9 @@ function _createMails() {
 
 function _getDemoMails() {
     const mails = [
-        { id: utilsService.makeId(), type: 'income', address: 'Nadav@gmail.com', subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: 1659833930320 },
-        { id: utilsService.makeId(), type: 'outcome', address: 'Adina@gmail.com', subject: 'Check it out!', body: 'Check my Keep app', isStarred: true, isRead: false, sentAt: 1551155690578 },
-        { id: utilsService.makeId(), type: 'draft', address: 'Alon@gmail.com', subject: 'lets do it!', body: 'Pick up!', isStarred: false, isRead: false, sentAt: 1551133930594 },
+        { id: utilsService.makeId(), type: 'income', address: 'Nadav@gmail.com', subject: 'Hello all!', body: `Hi and welcome to our mail app, Our app provide the latest technology!`, isStarred: true, isRead: true, sentAt: new Date },
+        { id: utilsService.makeId(), type: 'outcome', address: 'Adina@gmail.com', subject: 'Check it out!', body: 'Check my Keep app, The Keep app lets you save your latest funny Keeps and show them to your family', isStarred: true, isRead: false, sentAt: new Date },
+        { id: utilsService.makeId(), type: 'draft', address: 'Alon@gmail.com', subject: 'lets do it!', body: 'Indeed, this sort of apps is becoming more and more popular, as any person deals with great amounts of information, lacking time to read really long articles or 100-page documents. And such text analyzers seem to be the right hand, for example, for businessmen or students who certainly have to look through piles of papers.', isStarred: false, isRead: false, sentAt: new Date },
     ]
     return mails
 }
