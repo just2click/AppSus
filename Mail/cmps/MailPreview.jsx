@@ -1,9 +1,8 @@
 
 const {NavLink} = ReactRouterDOM;
 export function MailPreview({ mail, onRemove }) {
-    const isReadClass = (mail.isRead) ? 'read' : ''
     return (
-    <article className={`email-preview ${isReadClass}`}>
+    <article className="email-preview unread">
     <NavLink  to={`/mail/${mail.id}`} >
     <h1>From: {mail.address}</h1>
     <h3>Subject: {mail.subject}</h3>

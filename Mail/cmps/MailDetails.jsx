@@ -25,7 +25,7 @@ export class MailDetails extends React.Component {
         this.props.history.goBack()
     };
     render() {
-        if (!this.state.mail) return <div>Loading..</div>;
+        if (!this.state.mail) return <div>Loading..</div>
         return (
             <article className="email-details">
                 <h2>{this.state.mail.subject}</h2>

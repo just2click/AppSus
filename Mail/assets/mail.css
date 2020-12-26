@@ -26,6 +26,14 @@
         border-bottom: 1px solid black;
     }
     
+    .email-preview {
+        font-weight: normal;
+    }
+    
+    .unread {
+        font-weight: bold;
+    }
+    
     .fa-star:before {
         font-size: 1.4rem;
     }
@@ -49,7 +57,7 @@
         padding: 0;
         list-style-type: none;
         font-size: 1.4rem;
-        line-height: 125px;
+        line-height: 145px;
         background-color: #699B31;
         box-shadow: 5px 0px 0px 0px #CFE1CC;
         text-align: center;

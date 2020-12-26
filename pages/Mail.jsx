@@ -8,10 +8,10 @@ export class Mail extends React.Component {
     state = {
         mails: [],
         mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
-        isCompose:false,
+        isCompose: false,
         isComposeShown: false,
-        isRead: false,
-        filterBy:''
+        isUnread: true,
+        filterBy: ''
     }
 
     componentDidMount() {
@@ -25,9 +25,7 @@ export class Mail extends React.Component {
             })
     }
 
-    getMailsForDisplay = () => {
-        return this.state.mails
-    }
+
 
     onRemoveMail = (mailId) => {
         mailService.remove(mailId).then(() => {
@@ -43,18 +41,6 @@ export class Mail extends React.Component {
         })
     }
 
-    sendToDrafts = (draft) => {
-        if (!draft.address && !draft.subject && !draft.body) {
-            this.closeCompose();
-            return
-        }
-        mailService.sendToDrafts(draft)
-            .then(() => {
-                eventBus.emit('notify', { msg: 'Saved to drafts!', type: 'success' })
-                this.closeCompose()
-                this.loadMails()
-            })
-    }
     onCompose = () => {
         this.setState({ isCompose: true });
     }
@@ -74,18 +60,24 @@ export class Mail extends React.Component {
     onSetFilter = (filterBy) => {
         this.setState({ filterBy })
     }
+
+    onReadMail = () => {
+        const className = mail.isUnread ? 'email-preview unread' : 'email-preview'
+        this.setState({ isUnread: true })
+    }
     render() {
+        const { mail } = this.state;
         const mailsToShow = this.mailsForDisplay
         return <div className="email-main">
-                   <section>
+            <section>
                 <p onClick={this.onOpenCompose}>📧</p>
                 <ul className="clean-list">
                     <li onClick={() => { this.onSetFilter('') }}>Inbox</li>
                     <li onClick={() => { this.onSetFilter('unread') }}>Unread</li>
-                    <li aria-disabled>Sent</li>
+                    <li onClick={() => { this.onSetFilter('sent') }}>Sent</li>
                 </ul>
             </section>
-            <MailList mails={mailsToShow}  onRemove={this.onRemoveMail} />
+            <MailList mails={mailsToShow} onRemove={this.onRemoveMail} onClick={this.onReadMail} />
             {this.state.isComposeShown && <MailCompose onSent={this.onSent} onClick={this.onSent} />}
         </div>
     }

@@ -9,7 +9,7 @@ export class MailCompose extends React.Component {
             address: '',
             subject: '',
             body: '',
-            type:'unread'
+            type:['unread','sent']
         }
     }
 
