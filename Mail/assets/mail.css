@@ -9,6 +9,11 @@
         grid-gap: 10px;
     }
     
+    .email-details button {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
     .mail-preview {
         margin: 8px;
         background-color: rgb(105, 155, 49);

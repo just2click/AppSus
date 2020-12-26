@@ -16,15 +16,9 @@
 .nav-pages {
     background-color: #535a58;
     color: white;
-<<<<<<< HEAD
-    padding: 3rem 2.5rem 2rem;
-    box-shadow: 1px 3px 6px 0px black;
-    margin: -2% -2% 0 -2%;
-=======
     padding: 1.5rem;
     box-shadow: 1px 3px 6px 0px black;
     margin: 0;
->>>>>>> 3e08e4970f9015b5c61494453dd36376330f0c8d
     list-style: none;
     display: flex;
     font-size: large;
