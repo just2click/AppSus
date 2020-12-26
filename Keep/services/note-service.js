@@ -49,7 +49,7 @@ function addNote(newNote) {
             }, [])
             break
     }
-    const newNoteToAdd = { id: utilsService.makeId(), type: newNote.type, info: newInfo }
+    const newNoteToAdd = { color: '#f1f1f1', id: utilsService.makeId(), type: newNote.type, info: newInfo }
     gNotes = [newNoteToAdd, ...gNotes]
     console.log(newInfo)
     _saveNotesToStorage()
@@ -85,7 +85,7 @@ function query() {
 
 function _getDemoNotes() {
     const notes = [{
-            color: '#F1F1F1',
+            color: '#f1f1f1',
             type: 'NoteText',
             isPinned: true,
             id: utilsService.makeId(),
@@ -95,7 +95,7 @@ function _getDemoNotes() {
             isPinned: false
         },
         {
-            color: '#F1F1F1',
+            color: '#f1f1f1',
             type: 'NoteImg',
             id: utilsService.makeId(),
             info: {
@@ -105,7 +105,7 @@ function _getDemoNotes() {
             isPinned: true
         },
         {
-            color: '#F1F1F1',
+            color: '#f1f1f1',
             type: 'NoteTodos',
             id: utilsService.makeId(),
             info: {
