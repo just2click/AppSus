@@ -85,7 +85,7 @@ export class Mail extends React.Component {
                     <li aria-disabled>Sent</li>
                 </ul>
             </section>
-            <MailList mails={mailsToShow} mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
+            <MailList mails={mailsToShow}  onRemove={this.onRemoveMail} />
             {this.state.isComposeShown && <MailCompose onSent={this.onSent} onClick={this.onSent} />}
         </div>
     }
