@@ -1,19 +1,17 @@
 import { mailService } from '../Mail/service/mail-service.js'
 import { MailList } from '../Mail/cmps/MailList.jsx'
-// import { MailNavBar } from '../Mail/cmps/MailNavBar.jsx'
 import { MailCompose } from '../Mail/cmps/MailCompose.jsx'
-// import { MailFilter } from '../Mail/cmps/MailFilter.jsx'
+
 
 export class Mail extends React.Component {
 
     state = {
         mails: [],
-        // mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
-        isCompose: false,
+        mail: { type: 'income', address: null, subject: 'Hello all!', body: `Hi and welcome to our mail app`, isStarred: true, isRead: false, sentAt: new Date() },
+        isCompose:false,
         isComposeShown: false,
-        // poistion abosulute
         isRead: false,
-        filterBy: ''
+        filterBy:''
     }
 
     componentDidMount() {
@@ -27,17 +25,13 @@ export class Mail extends React.Component {
             })
     }
 
-    get mailsForDisplay() {
-        const { filterBy } = this.state
-        const filterRegex = new RegExp(filterBy, 'i')
-        return this.state.mails.filter(mail => filterRegex.test(mail.type))
-        // return this.state.mails
+    getMailsForDisplay = () => {
+        return this.state.mails
     }
 
     onRemoveMail = (mailId) => {
-        mailService.remove(mailId).then((mails) => {
-            this.setState({ mails })
-            // this.loadMails()
+        mailService.remove(mailId).then(() => {
+            this.loadMails()
         })
     }
 
@@ -69,50 +63,31 @@ export class Mail extends React.Component {
         this.setState({ isComposeShown: false })
         this.loadMails()
     }
-
     onOpenCompose = () => {
         this.setState({ isComposeShown: true })
     }
-    onSetFiler = (filterBy) => {
+    get mailsForDisplay() {
+        const { filterBy } = this.state
+        const filterRegex = new RegExp(filterBy, 'i')
+        return this.state.mails.filter(mail => filterRegex.test(mail.type))
+    }
+    onSetFilter = (filterBy) => {
         this.setState({ filterBy })
     }
-    onChangeToDelete = (mail, type) => {
-        // ev.preventDefault()
-        mailService.changeToDeleted(mail, type)
-            .then(mails => {
-                this.setState({ mails })
-            })
-    }
-    // submitCompose = (newMail) => {
-    //     mailService.sendMail(newMail)
-    //         .then(() => {
-    //             eventBus.emit('notify', { msg: 'The mail have been sent!', type: 'success' })
-    //             this.closeCompose()
-    //             this.loadMails()
-    //         })
-    // }
     render() {
         const mailsToShow = this.mailsForDisplay
         return <div className="email-main">
-            <section>
+                   <section>
                 <p onClick={this.onOpenCompose}>📧</p>
                 <ul className="clean-list">
-                    <li onClick={() => { this.onSetFiler('') }}>All</li>
-                    <li>Inbox</li>
-                    <li onClick={() => { this.onSetFiler('unread') }}>Unread</li>
-                    <li onClick={() => {
-                        this.onSetFiler('d')
-                        console.log('this is a trah');
-                    }}>Trash</li>
-                    <li>Sent</li>
-                    {/* <li>Drafts</li> */}
+                    <li onClick={() => { this.onSetFilter('') }}>Inbox</li>
+                    <li onClick={() => { this.onSetFilter('unread') }}>Unread</li>
+                    <li aria-disabled>Sent</li>
                 </ul>
-                {/* <MailNavBar /> */}
             </section>
-            <MailList mails={mailsToShow} onRemove={this.onRemoveMail} changeToDeleted={this.onChangeToDelete} />
+            <MailList mails={mailsToShow} mails={this.getMailsForDisplay()} onRemove={this.onRemoveMail} />
             {this.state.isComposeShown && <MailCompose onSent={this.onSent} onClick={this.onSent} />}
         </div>
-        // onClick={this.onCompose} -- goes back to MailCompose?
     }
 
 }
