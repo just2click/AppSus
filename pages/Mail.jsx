@@ -64,6 +64,24 @@ export class Mail extends React.Component {
         const className = mail.isUnread ? 'email-preview unread' : 'email-preview'
         this.setState({ isUnread: true })
     }
+    onChangeToPref = (mail, ev) => {
+        ev.preventDefault()
+        mailService.changeToPref(mail).then(mails => {
+            this.setState({ mails })
+        })
+    }
+    onChangeToRead = (mail, ev) => {
+        ev.preventDefault()
+        mailService.changeToRead(mail).then(mails => {
+            this.setState({ mails })
+        })
+    }
+    onTagAsSend = (mail, ev) => {
+        ev.preventDefault()
+        mailService.tagAsSend(mail).then(mails => [
+            this.setState({ mails })
+        ])
+    }
     render() {
         const { mail } = this.state;
         const mailsToShow = this.mailsForDisplay
@@ -72,12 +90,13 @@ export class Mail extends React.Component {
                 <p onClick={this.onOpenCompose}>📧</p>
                 <ul className="clean-list">
                     <li onClick={() => { this.onSetFilter('') }}>Inbox</li>
-                    <li onClick={() => { this.onSetFilter('unread') }}>Unread</li>
+                    <li onClick={() => { this.onSetFilter('read') }}>Read</li>
                     <li onClick={() => { this.onSetFilter('sent') }}>Sent</li>
+                    <li onClick={() => { this.onSetFilter('pref') }}>Starred</li>
                 </ul>
             </section>
-            <MailList mails={mailsToShow} onRemove={this.onRemoveMail} onClick={this.onReadMail} />
-            {this.state.isComposeShown && <MailCompose onSent={this.onSent} onClick={this.onSent} />}
+            <MailList mails={mailsToShow} onRemove={this.onRemoveMail} onClick={this.onReadMail} changeToPref={this.onChangeToPref} changeToRead={this.onChangeToRead} />
+            {this.state.isComposeShown && <MailCompose onSent={this.onSent} onClick={this.onSent} tagAsSend={this.onTagAsSend} />}
         </div>
     }
 

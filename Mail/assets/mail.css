@@ -71,6 +71,14 @@ h3 {
     background-color: rgba(173, 167, 167, 0.692);
 }
 
+.yellow {
+    color: yellow
+}
+
+.black {
+    color: black;
+}
+
 .details-view {
     background-color: rgb(183, 211, 170);
     margin: -9.7rem -2rem -5rem;

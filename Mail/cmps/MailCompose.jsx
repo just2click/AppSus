@@ -39,7 +39,11 @@ export class MailCompose extends React.Component {
                 <input name="address" placeholder="From" value={this.state.newMail.address} onChange={this.onInputChange} autoComplete="off" />
                 <input name="subject" placeholder="Subject" value={this.state.newMail.subject} onChange={this.onInputChange} autoComplete="off" />
                 <textarea name="body" type="text-area" placeholder="Content" value={this.state.newMail.body} onChange={this.onInputChange}></textarea>
-                <button type="submit" onSubmit={this.onSendMail}><span>Send</span> </button>
+                <button type="submit" onClick={() => {
+                    this.onSendMail
+                    this.props.tagAsSend(mail)
+                }}>
+                    <span>Send</span> </button>
             </form>
         )
     }
