@@ -62,13 +62,11 @@ export class Keep extends React.Component {
         })
     }
     onTodoClicked = (note, todoId) => {
-        // ev.preventDefault()
         noteService.todoClicked(note, todoId).then(notes => {
             this.setState({ notes })
         })
     }
     onAddTodo = (note, todo) => {
-        // ev.preventDefault()
         noteService.addTodo(note, todo).then(notes => {
             this.setState({ notes })
         })

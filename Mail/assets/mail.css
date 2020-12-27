@@ -52,11 +52,6 @@ h3 {
     border: 1px solid black;
 }
 
-
-/* .email-preview:not(:last-child) {
-        border-bottom: 1px solid black;
-    } */
-
 .all-mails {
     margin: 6rem 6rem auto;
     box-shadow: 8px 7px 7px 0px #636161;
@@ -78,7 +73,7 @@ h3 {
 
 .details-view {
     background-color: rgb(183, 211, 170);
-    margin: -7rem -2rem -5rem;
+    margin: -9.7rem -2rem -5rem;
     height: 100vh;
 }
 

@@ -36,7 +36,6 @@ export class Mail extends React.Component {
     onAddMail = (ev) => {
         ev.preventDefault();
         mailService.add(this.state.mail).then(addedMail => {
-            console.log('addedNote:', addedMail);
             this.loadMails();
         })
     }
