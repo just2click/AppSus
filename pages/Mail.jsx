@@ -69,7 +69,7 @@ export class Mail extends React.Component {
         const { mail } = this.state;
         const mailsToShow = this.mailsForDisplay
         return <div className="email-main">
-            <section>
+            <section className="filter-area">
                 <p onClick={this.onOpenCompose}>📧</p>
                 <ul className="clean-list">
                     <li onClick={() => { this.onSetFilter('') }}>Inbox</li>

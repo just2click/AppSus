@@ -4,7 +4,13 @@
 export function Home() {
     return (
         <section className="home">
-            <h1>Welcome to Appsus App</h1>
+            <pre>
+                Welcome
+
+
+                
+                to Appsus App
+                 </pre>
             <img src="./imgs/homepage.png"></img>
         </section>
     )

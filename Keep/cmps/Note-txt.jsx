@@ -37,9 +37,11 @@ export class NoteTxt extends React.Component {
         text = value
         this.setState({ text })
     }
-    addPin = () => {
+    onAddPin = () => {
+
         let isPinned = this.state.isPinned
         isPinned = isPinned ? false : true
+        console.log('isPinned:', isPinned);
         this.setState({ isPinned })
     }
     render() {
@@ -56,7 +58,10 @@ export class NoteTxt extends React.Component {
             }}></i></div>}
 
             <p className="edit" >
-                <i className="fas fa-thumbtack" onClick={this.addPin}></i>
+                <i className="fas fa-thumbtack" onClick={() => {
+                    this.props.addPin(note)
+                    this.onAddPin()
+                }}></i>
                 <i className="fas fa-palette" onMouseOver={this.editColor}></i>
                 <i className="fas fa-edit" onClick={this.editTxt}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>

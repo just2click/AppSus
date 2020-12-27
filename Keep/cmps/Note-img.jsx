@@ -8,7 +8,7 @@ export class NoteImg extends React.Component {
         isPinned: false,
         isColorClicked: false,
         url: '',
-        title: ''
+        title: this.props.note.info.title
     }
 
     edit = (ev) => {
@@ -55,12 +55,12 @@ export class NoteImg extends React.Component {
             title
         });
     };
-    clearTitleInput = () => {
+    clearAddSign = () => {
         let isEditTitle = this.state.isEditTitle
         isEditTitle = false
         this.setState({ isEditTitle })
     }
-    addPin = () => {
+    onAddPin = () => {
         let isPinned = this.state.isPinned
         isPinned = isPinned ? false : true
         this.setState({ isPinned })
@@ -72,9 +72,14 @@ export class NoteImg extends React.Component {
         const { isEditUrl, isEditTitle, isColorClicked, isPinned } = this.state
         const { note } = this.props
         return <article className="note-preview img-type" style={{ backgroundColor: color }}>
-            {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
-            {/* <h1>{title}</h1> */}
-            {/* <input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} /> */}
+            {note.isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
+            <div>
+                <input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} />
+                {isEditTitle && <i className="fas fa-pencil-alt" onClick={(ev) => {
+                    this.props.changeTitle(note, this.state.title, url, ev)
+                    this.clearAddSign()
+                }}></i>}
+            </div>
             <img className="img" src={url} />
 
             {isEditUrl && <div><input className="change-url" type="text" placeholder="Enter img-url" name="url" onChange={this.onInputChangeUrl} value={this.state.url} style={{ backgroundColor: color }} />
@@ -83,14 +88,12 @@ export class NoteImg extends React.Component {
                     this.clearUrlInput()
                 }} ></i>
             </div>}
-            {isEditTitle && <div>
-                <i class="fas fa-pencil-alt" onClick={(ev) => {
-                    this.props.changeTitle(note, this.state.title, ev)
-                    this.clearTitleInput()
-                }}></i>
-            </div>}
+
             <p className="edit" >
-                <i className="fas fa-thumbtack" onClick={this.addPin} ></i>
+                <i className="fas fa-thumbtack" onClick={() => {
+                    this.props.addPin(note)
+                    this.onAddPin()
+                }} ></i>
                 <i className="fas fa-palette" onMouseOver={this.editColor}></i>
                 <i className="fas fa-pencil-alt" onClick={this.editTitle}></i>
                 <i className="fas fa-edit" onClick={this.edit}></i>

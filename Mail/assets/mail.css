@@ -1,102 +1,227 @@
-    h1,
-    h3 {
-        margin: 0;
-    }
-    
-    .email-main {
-        display: grid;
-        grid-template-columns: 1fr 10fr;
-        grid-gap: 10px;
-    }
-    
-    .email-details button {
-        font-size: 1rem;
-        margin-bottom: 10px;
-    }
-    
-    .mail-preview {
-        margin: 8px;
-        background-color: rgb(105, 155, 49);
-        cursor: pointer;
-        box-shadow: -9px -5px 0px 0px #cfe1cc;
-        padding: 5px;
-    }
-    
-    .email-preview:not(:last-child) {
+h1,
+h3 {
+    margin: 0;
+}
+
+.filter-area {
+    background-color: honeydew;
+    margin: 6rem 0.5rem auto 5rem;
+    box-shadow: 4px 2px 7px black;
+}
+
+.filter-area li {
+    border-bottom: 2px solid black;
+    transition: 0.35s;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.filter-area li:hover {
+    background-color: rgb(160, 226, 160);
+}
+
+.filter-area p {
+    background-color: rgb(109, 172, 109);
+    box-shadow: 0px 2px 2px 0px black;
+    transition: 0.15s;
+}
+
+.filter-area p:hover {
+    background-color: rgb(46, 43, 43);
+}
+
+.email-main {
+    display: grid;
+    grid-template-columns: 2fr 6fr;
+    grid-template-rows: 1fr 0.2fr;
+    grid-gap: 10px;
+    background-color: #e4e4e4;
+    margin: 0 -3%;
+}
+
+.email-details button {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.mail-preview {
+    margin: 8px;
+    background-color: rgb(105, 155, 49);
+    cursor: pointer;
+    box-shadow: -9px -5px 0px 0px #cfe1cc;
+    padding: 5px;
+    border: 1px solid black;
+}
+
+
+/* .email-preview:not(:last-child) {
         border-bottom: 1px solid black;
-    }
-    
-    .email-preview {
-        font-weight: normal;
-    }
-    
-    .unread {
-        font-weight: bold;
-    }
-    
-    .fa-star:before {
-        font-size: 1.4rem;
-    }
-    
-    .fa-star:active {
-        color: yellow;
-    }
-    
-    .fa-trash:before {
-        font-size: 1.4rem;
-        margin-left: 20px;
-    }
-    
-    .mail-util {
-        display: flex;
-        flex-direction: row-reverse;
-    }
-    
-    .clean-list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        font-size: 1.4rem;
-        line-height: 145px;
-        background-color: #699B31;
-        box-shadow: 5px 0px 0px 0px #CFE1CC;
-        text-align: center;
-        border-bottom: 1px solid black;
-        cursor: pointer;
-    }
-    
-    .compose-form {
-        display: grid;
-        grid-column-start: 1;
-        grid-column-end: 3;
-    }
-    
-    textarea {
-        height: 150px;
-        font-size: 1.25rem;
-    }
-    
-    #root>section>div>section>article>a {
-        color: black;
-    }
-    
-    #root>section>div>form>input {
-        font-size: 1.25rem;
-    }
-    
-    #root>section>div>form>button {
-        padding: 20px;
-        font-size: 1.25rem;
-    }
-    
-    #root>section>div>section:nth-child(1)>ul>li:nth-child() {
-        cursor: pointer;
-    }
-    
-    #root>section>div>section:nth-child(1)>p {
-        text-align: center;
-        margin: 0;
-        font-size: 3rem;
-        cursor: pointer;
-        background-color: #699B31;
-    }
+    } */
+
+.all-mails {
+    margin: 6rem 6rem auto;
+    box-shadow: 8px 7px 7px 0px #636161;
+    background-color: #f4f4f4;
+}
+
+.email-preview {
+    font-weight: normal;
+    border: 2px solid black;
+    display: grid;
+    grid-template-columns: 7fr 1fr;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.email-preview:hover {
+    background-color: rgba(173, 167, 167, 0.692);
+}
+
+.details-view {
+    background-color: rgb(183, 211, 170);
+    margin: -7rem -2rem -5rem;
+    height: 100vh;
+}
+
+.email-details {
+    height: 67.8vh;
+    border: 1px solid;
+    margin: 10rem 20rem 5rem;
+    box-shadow: 7px -2px 7px 0px #656262;
+    padding: 2rem;
+    background-color: rgba(255, 255, 255, 0.877);
+}
+
+.email-details div {
+    background-color: rgba(41, 36, 36, 0.973);
+    color: white;
+    font-weight: bold;
+    margin: -3.3rem -2rem;
+}
+
+.email-details div h2 {
+    padding: 1.5rem;
+}
+
+.content {
+    display: grid;
+    grid-template-rows: 1fr 3fr 1fr;
+}
+
+.email-details h3 {
+    margin-top: 5rem;
+}
+
+.fas .fa-backward {
+    margin-top: 10rem;
+    transition: 0.2s;
+    cursor: pointer;
+    font-size: xx-large;
+}
+
+.fas .fa-backward:hover {
+    background-color: green;
+}
+
+.mail-details h1,
+h3,
+p {
+    color: black;
+    margin-left: 1rem;
+}
+
+.mail-util {
+    grid-column: -2/-1;
+    display: flex;
+    flex-direction: row-reverse;
+    float: right;
+    margin: 1rem;
+}
+
+.unread {
+    font-weight: bold;
+}
+
+.fa-star:before {
+    font-size: 1.4rem;
+}
+
+.fa-star:active {
+    color: yellow;
+}
+
+.fa-trash:before {
+    font-size: 1.4rem;
+    margin-left: 20px;
+}
+
+.clean-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    font-size: 1.4rem;
+    line-height: 145px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.compose-form {
+    display: grid;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    margin: 0 25rem 5rem;
+    box-shadow: 3px 5px 6px black;
+    border: 0.1rem solid #4e4e4e;
+}
+
+.compose-form div {
+    padding: 1rem;
+    background-color: black;
+    color: white;
+}
+
+input:focus {
+    outline: none;
+}
+
+textarea {
+    height: 150px;
+    font-size: 1.25rem;
+    padding: 1rem;
+}
+
+#root>section>div>section>article>a {
+    color: black;
+}
+
+#root>section>div>form>input {
+    font-size: 1.25rem;
+    padding: 1rem;
+}
+
+#root>section>div>form>button {
+    padding: 1rem;
+    width: 4rem;
+    font-size: 1.25rem;
+    background-color: green;
+    font-weight: bold;
+    font-family: auto;
+    margin-left: 45.4rem;
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+#root>section>div>form>button:hover {
+    background-color: rgb(76, 71, 71);
+    color: rgb(191, 231, 130);
+}
+
+#root>section>div>section:nth-child(1)>ul>li:nth-child() {
+    cursor: pointer;
+}
+
+#root>section>div>section:nth-child(1)>p {
+    text-align: center;
+    margin: 0;
+    font-size: 3rem;
+    cursor: pointer;
+}

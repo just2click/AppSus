@@ -20,8 +20,21 @@
     box-shadow: 1px 3px 6px 0px black;
     margin: -2% -2% 0 -2%;
     list-style: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 6fr 1fr 1fr 1fr;
     font-size: large;
+}
+
+.mail-nav {
+    grid-column: 4/5;
+}
+
+.keep-nav {
+    grid-column: 5/6;
+}
+
+.book-nav {
+    grid-column: -2/-1;
 }
 
 .page:hover {
@@ -54,16 +67,25 @@ a:active {
     color: rgb(126, 226, 126);
 }
 
-.home>h1 {
+.home {
+    background-color: #e4e4e4;
+    margin: -2.9% -4% 0%;
+    /* height: 80vh; */
+}
+
+.home>pre {
     text-align: center;
-    margin-top: 5px;
+    margin: 3rem -2rem 0 30rem;
+    font-size: xxx-large;
+    font-weight: bold;
+    padding-top: 3rem;
+    text-shadow: 3px -3px 6px #5e5757;
 }
 
 .home>img {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 50%;
+    margin-top: -4rem;
 }
 
 .about {

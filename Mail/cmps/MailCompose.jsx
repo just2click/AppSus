@@ -9,15 +9,16 @@ export class MailCompose extends React.Component {
             address: '',
             subject: '',
             body: '',
-            type:['unread','sent']
-        }
+            type: ['unread', 'sent']
+        },
+        isComposeShown: false,
     }
 
 
     onInputChange = (ev) => {
-        const mail = {...this.state.newMail}
+        const mail = { ...this.state.newMail }
         mail[ev.target.name] = ev.target.value
-        this.setState({newMail:mail})
+        this.setState({ newMail: mail })
     }
     onSendMail = (ev) => {
         ev.preventDefault();
@@ -27,13 +28,18 @@ export class MailCompose extends React.Component {
                 this.props.onSent();
             })
     }
+    closeEmail = () => {
+
+    }
     render() {
         return (
+
             <form className="compose-form" onSubmit={this.onSendMail}>
-                <input name="address" placeholder="From" value={this.state.newMail.address} onChange={this.onInputChange} />
-                <input name="subject" placeholder="Subject" value={this.state.newMail.subject} onChange={this.onInputChange} />
+                <div>Send An Email</div>
+                <input name="address" placeholder="From" value={this.state.newMail.address} onChange={this.onInputChange} autoComplete="off" />
+                <input name="subject" placeholder="Subject" value={this.state.newMail.subject} onChange={this.onInputChange} autoComplete="off" />
                 <textarea name="body" type="text-area" placeholder="Content" value={this.state.newMail.body} onChange={this.onInputChange}></textarea>
-                <button type="submit" onSubmit={this.onSendMail}>Send</button>
+                <button type="submit" onSubmit={this.onSendMail}><span>Send</span> </button>
             </form>
         )
     }

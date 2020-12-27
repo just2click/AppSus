@@ -43,15 +43,21 @@ export class Keep extends React.Component {
             this.setState({ notes })
         })
     }
-    onChangeTitle = (note, title, ev) => {
+    onChangeTitle = (note, title, url, ev) => {
         ev.preventDefault()
-        noteService.changeTitle(note, title).then(notes => {
+        noteService.changeTitle(note, title, url).then(notes => {
             this.setState({ notes })
         })
     }
     onChangeTxt = (note, text, ev) => {
         ev.preventDefault()
         noteService.changeTxt(note, text).then(notes => {
+            this.setState({ notes })
+        })
+    }
+    onChangeLabel = (note, label, todos, ev) => {
+        ev.preventDefault()
+        noteService.changeLabel(note, label, todos).then(notes => {
             this.setState({ notes })
         })
     }
@@ -69,6 +75,11 @@ export class Keep extends React.Component {
     }
     onRemoveTodo = (note, todoId) => {
         noteService.removeTodo(note, todoId).then(notes => {
+            this.setState({ notes })
+        })
+    }
+    onAddPin = (note) => {
+        noteService.addPin(note).then(notes => {
             this.setState({ notes })
         })
     }
@@ -101,7 +112,7 @@ export class Keep extends React.Component {
 
                     </section>
 
-                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} todoClicked={this.onTodoClicked} addTodo={this.onAddTodo} removeTodo={this.onRemoveTodo} />
+                    <NoteList notes={notesToShow} remove={this.onRemoveNote} changeUrl={this.onChangeUrl} changeColor={this.onChangeColor} changeTitle={this.onChangeTitle} changeTxt={this.onChangeTxt} todoClicked={this.onTodoClicked} addTodo={this.onAddTodo} removeTodo={this.onRemoveTodo} addPin={this.onAddPin} changeLabel={this.onChangeLabel} />
                 </section >
             )
         }

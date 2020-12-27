@@ -6,10 +6,7 @@ const KEY = 'notedDB'
 
 export const noteService = {
     query,
-    // getNoteById,
-    // getNotesTypes,
     remove,
-    // add,
     addNote,
     changeUrl,
     changeColor,
@@ -17,8 +14,11 @@ export const noteService = {
     changeTxt,
     todoClicked,
     addTodo,
-    removeTodo
+    removeTodo,
+    changeLabel,
+    addPin
 }
+
 var gNotes;
 _createNotes();
 
@@ -37,7 +37,7 @@ function addNote(newNote) {
         case "NoteText":
             newInfo.txt = newNote.note
             break;
-        case "NoteImg" || "NoteVideo":
+        case "NoteImg" || "NoteVideo" || "NoteAudio":
             newInfo.url = newNote.note
             break;
         case "NoteTodos":
@@ -51,22 +51,7 @@ function addNote(newNote) {
     const newNoteToAdd = { color: '#f1f1f1', id: utilsService.makeId(), type: newNote.type, info: newInfo }
     gNotes = [newNoteToAdd, ...gNotes]
     _saveNotesToStorage()
-        // const Toast = Swal.mixin({
-        //     toast: true,
-        //     position: 'top-end',
-        //     showConfirmButton: false,
-        //     timer: 3000,
-        //     timerProgressBar: true,
-        //     didOpen: (toast) => {
-        //         toast.addEventListener('mouseenter', Swal.stopTimer)
-        //         toast.addEventListener('mouseleave', Swal.resumeTimer)
-        //     }
-        // })
 
-    // Toast.fire({
-    //     icon: 'success',
-    //     title: 'Signed in successfully'
-    // })
     Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -97,7 +82,7 @@ function _getDemoNotes() {
             type: 'NoteImg',
             id: utilsService.makeId(),
             info: {
-                url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Robert_Bunsen.jpg',
+                url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Smooth_Collie_600.jpg/330px-Smooth_Collie_600.jpg',
                 title: 'nice picture!!'
             },
             isPinned: true
@@ -124,6 +109,25 @@ function _getDemoNotes() {
                 url: 'https://www.youtube.com/embed/tgbNymZ7vqY',
                 title: "nice vid!!"
             },
+            isPinned: false,
+        },
+        // {
+        //     color: '#F1F1F1',
+        //     type: 'NoteAudio',
+        //     id: utilsService.makeId(),
+        //     info: {
+        //         url: '',
+        //     },
+        //     isPinned: false
+        // },
+        {
+            color: '#f1f1f1',
+            type: 'NoteText',
+            isPinned: false,
+            id: utilsService.makeId(),
+            info: {
+                txt: 'It was hard but it worth it!! thanks for everything!'
+            },
             isPinned: false
         }
 
@@ -131,10 +135,6 @@ function _getDemoNotes() {
     ]
     return notes
 }
-
-// function getNoteById(noteId) {
-//     return noteService.find(note => note.id === noteId)
-// }
 
 function _saveNotesToStorage() {
     storageService.save(KEY, gNotes)
@@ -171,11 +171,12 @@ function changeUrl(note, url, ev) {
     return Promise.resolve(gNotes)
 }
 
-function changeTitle(note, title, ev) {
+function changeTitle(note, title, url, ev) {
     console.log('ev:', ev);
     const noteToUpdate = {
         ...note,
         info: {
+            url,
             title
         }
     }
@@ -185,6 +186,24 @@ function changeTitle(note, title, ev) {
     notesCopy[noteIdx] = noteToUpdate
     gNotes = notesCopy
 
+    _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
+
+function changeLabel(note, label, todos) {
+    const noteToUpdate = {
+        ...note,
+        info: {
+            label,
+            todos
+        }
+    }
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
+    notesCopy[noteIdx] = noteToUpdate
+    gNotes = notesCopy
+    console.log('gNotes:', gNotes);
     _saveNotesToStorage();
     return Promise.resolve(gNotes)
 }
@@ -214,8 +233,8 @@ function todoClicked(note, todoId, ev) {
     const noteToUpdate = {...note }
     const todoIdx = noteToUpdate.info.todos.findIndex(currTodo => todoId === currTodo.id)
     noteToUpdate.info.todos[todoIdx].isDone = noteToUpdate.info.todos[todoIdx].isDone ? true : false
+    noteToUpdate.info.todos[todoIdx].doneAt = new Date().toLocaleString()
     notesCopy[noteIdx] = noteToUpdate
-    console.log(notesCopy, 'notesCopy');
     gNotes = notesCopy
 
     _saveNotesToStorage();
@@ -228,9 +247,8 @@ function addTodo(note, todo, ev) {
     const notesCopy = [...gNotes]
     const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
     const noteToUpdate = {...note }
-    noteToUpdate.info.todos.push({ txt: todo, id: utilsService.makeId(), isDone: false, doneAt: null })
+    noteToUpdate.info.todos.push({ txt: todo + '                    ', id: utilsService.makeId(), isDone: false, doneAt: null })
     notesCopy[noteIdx] = noteToUpdate
-    console.log(notesCopy, 'notesCopy');
     gNotes = notesCopy
     _saveNotesToStorage();
     return Promise.resolve(gNotes)
@@ -242,9 +260,23 @@ function removeTodo(note, todoId) {
     const noteToUpdate = {...note }
     noteToUpdate.info.todos = noteToUpdate.info.todos.filter(todo => todo.id !== todoId)
     notesCopy[noteIdx] = noteToUpdate
-    console.log(notesCopy, 'notesCopy');
+
     gNotes = notesCopy
     _saveNotesToStorage();
+    return Promise.resolve(gNotes)
+}
+
+function addPin(note) {
+    const noteToUpdate = {...note }
+    const notesCopy = [...gNotes]
+    const noteIdx = notesCopy.findIndex(currNote => note.id === currNote.id)
+
+    notesCopy[noteIdx] = noteToUpdate
+    noteToUpdate.isPinned = noteToUpdate.isPinned ? false : true
+    console.log('updateNote:', noteToUpdate);
+    gNotes = notesCopy
+    _saveNotesToStorage();
+
     return Promise.resolve(gNotes)
 }
 

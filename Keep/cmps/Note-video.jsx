@@ -2,15 +2,23 @@ export class NoteVideo extends React.Component {
 
     state = {
         isEditUrl: false,
+        isEditTitle: false,
         isPinned: false,
         isColorClicked: false,
-        url: ''
+        url: '',
+        title: this.props.note.info.title
     }
     editVidUrl = (ev) => {
         ev.preventDefault();
         let isEditUrl = this.state.isEditUrl
         isEditUrl = true;
         this.setState({ isEditUrl })
+    }
+    editTitle = (ev) => {
+        ev.preventDefault()
+        let isEditTitle = this.state.isEditTitle
+        isEditTitle = isEditTitle ? false : true
+        this.setState({ isEditTitle })
     }
     clearUrlInput = () => {
         let isEditUrl = this.state.isEditUrl
@@ -36,9 +44,24 @@ export class NoteVideo extends React.Component {
             url
         });
     };
-    addPin = () => {
+    clearAddSign = () => {
+        let isEditTitle = this.state.isEditTitle
+        isEditTitle = false
+        this.setState({ isEditTitle })
+    }
+    onInputChangeTitle = (ev) => {//on input change
+        let value = ev.target.value
+        let title = this.state.title
+        title = value
+        this.setState({
+            title
+        });
+    };
+    onAddPin = () => {
+
         let isPinned = this.state.isPinned
         isPinned = isPinned ? false : true
+        console.log('isPinned:', isPinned);
         this.setState({ isPinned })
     }
     render() {
@@ -46,13 +69,19 @@ export class NoteVideo extends React.Component {
         const { url, title } = this.props.info
         const { isEditUrl } = this.state
         const { isColorClicked } = this.state
-        const { isPinned } = this.state
+        const { isPinned, isEditTitle } = this.state
         const { note } = this.props
         return <article className="note-preview video-type" style={{ backgroundColor: color }}>
 
-            {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
-            {/* <h2>{title}</h2> */}
-            <iframe width="300" height="180"
+            {note.isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
+            <div>
+                <input className="change-title" type="text" placeholder="Enter img-Title" name="url" onChange={this.onInputChangeTitle} value={this.state.title} style={{ backgroundColor: color }} />
+                {isEditTitle && <i className="fas fa-pencil-alt" onClick={(ev) => {
+                    this.props.changeTitle(note, this.state.title, url, ev)
+                    this.clearAddSign()
+                }}></i>}
+            </div>
+            <iframe width="220" height="200"
                 src={url}>
             </iframe>
             {isEditUrl && <div><input className="change-url" type="text" placeholder="Enter video-url" name="url" onChange={this.onInputChange} value={this.state.url} style={{ backgroundColor: color }} />
@@ -61,8 +90,12 @@ export class NoteVideo extends React.Component {
                     this.clearUrlInput()
                 }} ></i></div>}
             <p className="edit" >
-                <i className="fas fa-thumbtack" onClick={this.addPin}></i>
+                <i className="fas fa-thumbtack" onClick={() => {
+                    this.props.addPin(note)
+                    this.onAddPin()
+                }}></i>
                 <i className="fas fa-palette" onMouseOver={this.editColor}></i>
+                <i className="fas fa-pencil-alt" onClick={this.editTitle}></i>
                 <i className="fas fa-edit" onClick={this.editVidUrl}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
                 {isColorClicked && <ul className="colorsEdit edit">

@@ -58,7 +58,7 @@
     outline: none;
 }
 
-span {
+.input-signs {
     float: right;
     margin-top: -0.8rem;
     font-size: x-large;
@@ -72,6 +72,7 @@ span {
     margin: 5%;
     margin-bottom: 2rem;
     height: 100%;
+    justify-items: center;
 }
 
 .note-preview {
@@ -80,7 +81,7 @@ span {
     color: rgb(0, 0, 0);
     padding: 16px;
     transition: 0.2s;
-    box-shadow: 5px 3px 12px 0px black;
+    box-shadow: 9px 8px 8px 0px #565656;
 }
 
 .pinImg {
@@ -119,6 +120,7 @@ span {
 
 .img-type {
     height: fit-content;
+    width: 15rem;
 }
 
 .change-url {
@@ -128,6 +130,18 @@ span {
 }
 
 .change-url:focus {
+    outline: none;
+}
+
+.change-title {
+    margin-bottom: 1rem;
+    border: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+}
+
+.change-title:focus {
     outline: none;
 }
 
@@ -142,6 +156,7 @@ span {
 .todo-type {
     height: fit-content;
     cursor: pointer;
+    width: 20rem;
 }
 
 .add-todo {
@@ -157,9 +172,19 @@ span {
     text-decoration: line-through;
 }
 
+span .DoneAt {
+    text-decoration: line-through;
+    font-size: small;
+}
+
 .remove-todo {
     font-size: small;
     margin-top: 0.2rem;
+    margin-left: 10rem;
+}
+
+.remove-it {
+    float: right;
 }
 
 .remove-todo:hover {

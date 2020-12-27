@@ -7,18 +7,10 @@ export class NoteTodos extends React.Component {
         todos: [],
         todo: '',
         isPinned: false,
-        isEditTodo: false
+        isEditTodo: false,
+        isEditLabel: false,
+        label: this.props.note.info.label
     }
-
-
-    // onTodoClicked = (todoId) => {
-    //     let todo = this.state.todos.find(todo => todo.id === todoId)
-    //     // todo.isDone = !todo.isDone
-    //     this.setState({ todos: [...this.state.todos] })
-    //     let status = this.state.status
-    //     status = (status === 'not-done') ? 'done' : 'not-done'
-    //     this.setState({ status })
-    // }
 
     componentDidMount() {
         this.loadTodos()
@@ -34,13 +26,6 @@ export class NoteTodos extends React.Component {
         isEditTodo = isEditTodo ? false : true
         this.setState({ isEditTodo })
     }
-    // onAddTodo = (ev) => {
-    //     let value = ev.target.value
-    //     let todo = { ...this.state.todo }
-    //     todo = value
-    //     this.setState({ todo })
-
-    // }
     onInputChangeTodo = (ev) => {
         let value = ev.target.value
         let todo = { ...this.state.todo }
@@ -71,8 +56,26 @@ export class NoteTodos extends React.Component {
         isColorClicked = false
         this.setState({ isColorClicked })
     }
-
-    addPin = () => {
+    editLabel = (ev) => {
+        ev.preventDefault()
+        let isEditLabel = this.state.isEditLabel
+        isEditLabel = isEditLabel ? false : true
+        this.setState({ isEditLabel })
+    }
+    onInputChangeLabel = (ev) => {//on input change
+        let value = ev.target.value
+        let label = this.state.label
+        label = value
+        this.setState({
+            label
+        });
+    };
+    clearAddSign = () => {
+        let isEditLabel = this.state.isEditLabel
+        isEditLabel = false
+        this.setState({ isEditLabel })
+    }
+    onAddPin = () => {
         let isPinned = this.state.isPinned
         isPinned = isPinned ? false : true
         this.setState({ isPinned })
@@ -80,19 +83,25 @@ export class NoteTodos extends React.Component {
     render() {
         const { color } = this.props.note
         const { label, todos } = this.props.info
-        const { isColorClicked, isPinned, isEditTodo, todo } = this.state
+        const { isColorClicked, isPinned, isEditTodo, isEditLabel, todo } = this.state
         const { note } = this.props
         return <article className="note-preview todo-type" style={{ backgroundColor: color }} >
-            {/* {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />} */}
-            {isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
-            <h2>{label}</h2>
+            {note.isPinned && <img className="pinImg" src="https://cdn.the7eye.org.il/uploads/2014/11/nrg-13302.png" alt="" />}
+            <div>
+                <input className="change-title" type="text" name="url" onChange={this.onInputChangeLabel} value={this.state.label} style={{ backgroundColor: color }} />
+                {isEditLabel && <i className="fas fa-pencil-alt" onClick={(ev) => {
+                    this.props.changeLabel(note, this.state.label, todos, ev)
+                    this.clearAddSign()
+                }}></i>}
+            </div>
             <ul>
                 {todos.map((todo, idx) => {
                     return <li key={idx} className={(todo.isDone) ? 'Done' : ''} onClick={() => {
                         this.props.todoClicked(note, todo.id)
                         this.changeClass(todo.id)
-                    }}>{todo.txt}
-                        <span className="remove-todo"><i className="fas fa-times" onClick={() => {
+                    }}>{todo.txt}{'   '}
+                        {todo.isDone && <span className={(todo.isDone) ? 'DoneAt' : ''} >{todo.doneAt}</span>}
+                        <span className="remove-todo"><i className="remove-it fas fa-times" onClick={() => {
                             this.props.removeTodo(note, todo.id)
                         }}></i></span></li>
                 })}
@@ -102,8 +111,12 @@ export class NoteTodos extends React.Component {
                 this.clearEditTodo()
             }}></i></div>}
             <p className="edit" >
-                <i className="fas fa-thumbtack" onClick={this.addPin}></i>
+                <i className="fas fa-thumbtack" onClick={() => {
+                    this.props.addPin(note)
+                    this.onAddPin()
+                }}></i>
                 <i className="fas fa-palette" onMouseOver={this.editColor}></i>
+                <i className="fas fa-pencil-alt" onClick={this.editLabel}></i>
                 <i className="fas fa-edit" onClick={this.editTodo}></i>
                 <i className="fas fa-trash" onClick={() => { this.props.remove(note.id) }} ></i>
 
