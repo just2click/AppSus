@@ -171,9 +171,9 @@ p {
     display: grid;
     grid-column-start: 1;
     grid-column-end: 3;
-    margin: 0 25rem 5rem;
+    margin: 0 10rem 5rem;
     box-shadow: 3px 5px 6px black;
-    border: 0.1rem solid #4e4e4e;
+    border: 1px solid #4e4e4e;
 }
 
 .compose-form div {
@@ -203,14 +203,15 @@ textarea {
 
 #root>section>div>form>button {
     padding: 1rem;
-    width: 4rem;
     font-size: 1.25rem;
     background-color: green;
     font-weight: bold;
     font-family: auto;
-    margin-left: 45.4rem;
+    margin: 0;
     transition: 0.15s;
     cursor: pointer;
+    margin: 0 auto;
+    vertical-align: middle;
 }
 
 #root>section>div>form>button:hover {

@@ -36,7 +36,7 @@ export class MailPreview extends React.Component {
                 <NavLink to={`/mail/${mail.id}`} >
                     <h1>From: {mail.address}</h1>
                     <h3>Subject: {mail.subject}</h3>
-                    <p>{mail.body}</p>
+                    <p>{mail.body.substr(0,30)}</p>
                 </NavLink>
             </section>
             <div className="mail-util">
